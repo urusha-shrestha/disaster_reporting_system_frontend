@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
+import 'package:fyp/screens/logIn_screen.dart';
+import 'package:fyp/screens/report_screen.dart';
+import 'package:fyp/screens/reported_disaster_screen.dart';
 
 class CustomMenuBar extends StatelessWidget {
   static const String id = 'menu_bar';
@@ -16,14 +19,19 @@ class CustomMenuBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextButton(
-                onPressed: null,
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                      context, ReportedDisasterScreen.id);
+                },
                 child: Text(
                   'Home',
                   style: TextStyle(fontSize: 40.0, color: ktextColour),
                 ),
               ),
               TextButton(
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, ReportScreen.id);
+                  },
                   child: Text(
                     'Report',
                     style: TextStyle(fontSize: 40.0, color: ktextColour),
@@ -38,7 +46,9 @@ class CustomMenuBar extends StatelessWidget {
                 height: 100.0,
               ),
               TextButton(
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, LogInScreen.id);
+                  },
                   child: Text(
                     'Log Out',
                     style: TextStyle(fontSize: 40.0, color: ktextColour),
