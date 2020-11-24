@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fyp/components/rounded_button.dart';
 import 'package:fyp/screens/register_screen.dart';
 import 'package:fyp/screens/reported_disaster_screen.dart';
@@ -17,7 +18,16 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
   bool _isLoading = false;
+  bool _isHidden = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
 
   String email;
   String password;
@@ -45,61 +55,94 @@ class _LogInScreenState extends State<LogInScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 60.0, vertical: 40.0),
+                        horizontal: 60.0, vertical: 15.0),
                     child: Container(
                       color: Colors.white,
-                      height: 150.0,
+                      height: 145.0,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 20.0),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: emailController,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            email = value;
-                          },
-                          decoration: kTextFieldDecoration.copyWith(
-                            hintText: 'email',
+                    child: Form(
+                      key: formkey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: emailController,
+                            textAlign: TextAlign.center,
+                            onChanged: (value) {
+                              email = value;
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                              labelText: 'Email',
+                            ),
+                            autovalidate: true,
+                            validator: MultiValidator(
+                              [
+                                RequiredValidator(errorText: "Required"),
+                                EmailValidator(errorText: "Not a Valid Email"),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        TextField(
-                          controller: passwordController,
-                          obscureText: true,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            password = value;
-                          },
-                          decoration: kTextFieldDecoration.copyWith(
-                            hintText: 'password',
+                          SizedBox(
+                            height: 10.0,
                           ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        RoundedButton(
-                            buttonColor: kdarkColour,
-                            buttonTitle: 'Log In',
-                            onPressed: () {
-                              setState(() {
-                                _isLoading = true;
-                              });
-                              signIn(email, password);
-                            }),
-                        RoundedButton(
-                            buttonColor: kdarkColour,
-                            buttonTitle: 'Register',
-                            onPressed: () {
-                              Navigator.pushNamed(context, RegisterScreen.id);
-                            }),
-                      ],
+                          TextFormField(
+                            controller: passwordController,
+                            obscureText: _isHidden,
+                            textAlign: TextAlign.center,
+                            onChanged: (value) {
+                              password = value;
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                              labelText: 'Password',
+                              suffixIcon: IconButton(
+                                icon: _isHidden
+                                    ? Icon(Icons.visibility_off)
+                                    : Icon(Icons.visibility),
+                                onPressed: _togglePasswordVisibility,
+                              ),
+                            ),
+                            autovalidate: true,
+                            validator: MultiValidator(
+                              [
+                                RequiredValidator(errorText: "Required"),
+                                MinLengthValidator(6,
+                                    errorText: "Must be at least 6 characters"),
+                                MaxLengthValidator(15,
+                                    errorText:
+                                        "Must be less than 15 characters"),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          RoundedButton(
+                              buttonColor: kdarkColour,
+                              buttonTitle: 'Log In',
+                              onPressed: () {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                signIn(email, password);
+                              }),
+                          RoundedButton(
+                              buttonColor: kdarkColour,
+                              buttonTitle: 'Register',
+                              onPressed: () {
+                                Navigator.pushNamed(context, RegisterScreen.id);
+                              }),
+                          FlatButton(
+                              onPressed: null,
+                              child: Text(
+                                'Forgot Password',
+                                style: TextStyle(color: Colors.black),
+                              ))
+                        ],
+                      ),
                     ),
                   ),
                 ],

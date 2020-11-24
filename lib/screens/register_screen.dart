@@ -1,10 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fyp/screens/logIn_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:fyp/screens/logIn_screen.dart';
 import 'package:fyp/components/menu_bar.dart';
 import 'package:fyp/components/rounded_button.dart';
 import 'package:fyp/constants.dart';
@@ -18,10 +18,20 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _isLoading = false;
+  bool _isHidden = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
 
   final TextEditingController nameController = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController confirmPasswordController =
+      new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Container(
         color: kbackgroundColour,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
           child: SingleChildScrollView(
             child: Card(
               elevation: 10.0,
@@ -40,38 +50,100 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 borderRadius: BorderRadius.circular(20.0),
               ),
               color: kforegroundColour,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Reusable_column(
-                    label: 'Full Name',
-                    controller: nameController,
-                  ),
-                  Reusable_column(
-                    label: 'Email',
-                    controller: emailController,
-                  ),
-                  Reusable_column(
-                    label: 'Password',
-                    controller: passwordController,
-                  ),
-                  Reusable_column(label: 'Confirm Password'),
-                  RoundedButton(
-                    onPressed: () {
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      register(nameController.text, emailController.text,
-                          passwordController.text);
-                    },
-                    buttonColor: kdarkColour,
-                    buttonTitle: 'Register',
-                  ),
-                ],
+              child: Form(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    buildResuableColumn(
+                      label: 'Full Name',
+                      controller: nameController,
+                    ),
+                    buildResuableColumn(
+                      label: 'Email',
+                      controller: emailController,
+                      validator: EmailValidator(errorText: "Not a Valid Email"),
+                    ),
+                    buildResuableColumn(
+                      label: 'Password',
+                      controller: passwordController,
+                      validator: MultiValidator(
+                        [
+                          MaxLengthValidator(15,
+                              errorText: "Must be less than 15 characters"),
+                          MinLengthValidator(6,
+                              errorText: "Must be at least 6 characters"),
+                        ],
+                      ),
+                    ),
+                    buildResuableColumn(
+                      label: 'Confirm Password',
+                      controller: confirmPasswordController,
+                    ),
+                    RoundedButton(
+                      onPressed: () {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        register(nameController.text, emailController.text,
+                            passwordController.text);
+                      },
+                      buttonColor: kdarkColour,
+                      buttonTitle: 'Register',
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildResuableColumn({
+    String label,
+    TextEditingController controller,
+    FieldValidator validator,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 20.0,
+                color: ktextColour,
+              ),
+            ),
+          ),
+          TextFormField(
+            textAlign: TextAlign.center,
+            decoration: kTextFieldDecoration.copyWith(
+                hintText: label,
+                suffixIcon: label == "Password" || label == "Confirm Password"
+                    ? IconButton(
+                        icon: _isHidden
+                            ? Icon(Icons.visibility_off)
+                            : Icon(Icons.visibility),
+                        onPressed: _togglePasswordVisibility)
+                    : null),
+            obscureText: label == "Password" || label == "Confirm Password"
+                ? _isHidden
+                : false,
+            controller: controller,
+            autovalidate: true,
+            validator: MultiValidator(
+              [
+                RequiredValidator(errorText: "Required"),
+                validator,
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -106,38 +178,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
       print(response.body);
     }
-  }
-}
-
-class Reusable_column extends StatelessWidget {
-  Reusable_column({this.label, this.controller});
-  final String label;
-  final TextEditingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 20.0,
-                color: ktextColour,
-              ),
-            ),
-          ),
-          TextField(
-            textAlign: TextAlign.center,
-            decoration: kTextFieldDecoration.copyWith(hintText: label),
-            controller: controller,
-          ),
-        ],
-      ),
-    );
   }
 }
