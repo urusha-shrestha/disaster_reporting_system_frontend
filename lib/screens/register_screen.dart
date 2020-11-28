@@ -42,56 +42,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Container(
         color: kbackgroundColour,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-          child: SingleChildScrollView(
-            child: Card(
-              elevation: 10.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              color: kforegroundColour,
-              child: Form(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    buildResuableColumn(
-                      label: 'Full Name',
-                      controller: nameController,
-                    ),
-                    buildResuableColumn(
-                      label: 'Email',
-                      controller: emailController,
-                      validator: EmailValidator(errorText: "Not a Valid Email"),
-                    ),
-                    buildResuableColumn(
-                      label: 'Password',
-                      controller: passwordController,
-                      validator: MultiValidator(
-                        [
-                          MaxLengthValidator(15,
-                              errorText: "Must be less than 15 characters"),
-                          MinLengthValidator(6,
-                              errorText: "Must be at least 6 characters"),
-                        ],
-                      ),
-                    ),
-                    buildResuableColumn(
-                      label: 'Confirm Password',
-                      controller: confirmPasswordController,
-                    ),
-                    RoundedButton(
-                      onPressed: () {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        register(nameController.text, emailController.text,
-                            passwordController.text);
-                      },
-                      buttonColor: kdarkColour,
-                      buttonTitle: 'Register',
-                    ),
-                  ],
-                ),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+          child: Card(
+            elevation: 10.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            color: kforegroundColour,
+            child: Form(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buildResuableColumn(
+                    label: 'Full Name',
+                    controller: nameController,
+                  ),
+                  buildResuableColumn(
+                    label: 'Email',
+                    controller: emailController,
+                  ),
+                  buildResuableColumn(
+                    label: 'Password',
+                    controller: passwordController,
+                  ),
+                  buildResuableColumn(
+                    label: 'Confirm Password',
+                    controller: confirmPasswordController,
+                  ),
+                  RoundedButton(
+                    onPressed: () {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      register(nameController.text, emailController.text,
+                          passwordController.text);
+                    },
+                    buttonColor: kdarkColour,
+                    buttonTitle: 'Register',
+                  ),
+                ],
               ),
             ),
           ),
@@ -106,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     FieldValidator validator,
   }) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -136,12 +125,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 : false,
             controller: controller,
             autovalidate: true,
-            validator: MultiValidator(
-              [
-                RequiredValidator(errorText: "Required"),
-                validator,
-              ],
-            ),
           ),
         ],
       ),
@@ -158,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     var jsonResponse = null;
 
     var response =
-        await http.post("http://192.168.0.123:8000/api/register", body: data);
+        await http.post("http://192.168.0.108:8000/api/register", body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');

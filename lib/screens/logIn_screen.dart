@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp/screens/forgotpassword.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:form_field_validator/form_field_validator.dart';
@@ -18,8 +19,6 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
   bool _isLoading = false;
   bool _isHidden = true;
 
@@ -42,111 +41,111 @@ class _LogInScreenState extends State<LogInScreen> {
         color: kbackgroundColour,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 20.0),
-          child: SingleChildScrollView(
-            child: Card(
-              color: kforegroundColour,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              elevation: 10.0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 60.0, vertical: 15.0),
-                    child: Container(
-                      color: Colors.white,
-                      height: 145.0,
+          child: Card(
+            color: kforegroundColour,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            elevation: 10.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 60.0, vertical: 15.0),
+                  child: Container(
+                    color: Colors.white,
+                    height: 145.0,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20.0),
+                  child: Form(
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: emailController,
+                          textAlign: TextAlign.center,
+                          onChanged: (value) {
+                            email = value;
+                          },
+                          decoration: kTextFieldDecoration.copyWith(
+                            labelText: 'Email',
+                          ),
+                          autovalidate: true,
+                          validator: MultiValidator(
+                            [
+                              RequiredValidator(errorText: "Required"),
+                              EmailValidator(errorText: "Not a Valid Email"),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        TextFormField(
+                          controller: passwordController,
+                          obscureText: _isHidden,
+                          textAlign: TextAlign.center,
+                          onChanged: (value) {
+                            password = value;
+                          },
+                          decoration: kTextFieldDecoration.copyWith(
+                            labelText: 'Password',
+                            suffixIcon: IconButton(
+                              icon: _isHidden
+                                  ? Icon(Icons.visibility_off)
+                                  : Icon(Icons.visibility),
+                              onPressed: _togglePasswordVisibility,
+                            ),
+                          ),
+                          autovalidate: true,
+                          validator: MultiValidator(
+                            [
+                              RequiredValidator(errorText: "Required"),
+                              MinLengthValidator(6,
+                                  errorText: "Must be at least 6 characters"),
+                              MaxLengthValidator(15,
+                                  errorText: "Must be less than 15 characters"),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        RoundedButton(
+                            buttonColor: kdarkColour,
+                            buttonTitle: 'Log In',
+                            onPressed: () {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              signIn(email, password);
+                            }),
+                        RoundedButton(
+                            buttonColor: kdarkColour,
+                            buttonTitle: 'Register',
+                            onPressed: () {
+                              Navigator.pushNamed(context, RegisterScreen.id);
+                            }),
+                        FlatButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, ForgotPassword.id);
+                            },
+                            child: Text(
+                              'Forgot Password',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  decoration: TextDecoration.underline),
+                            ))
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 20.0),
-                    child: Form(
-                      key: formkey,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: emailController,
-                            textAlign: TextAlign.center,
-                            onChanged: (value) {
-                              email = value;
-                            },
-                            decoration: kTextFieldDecoration.copyWith(
-                              labelText: 'Email',
-                            ),
-                            autovalidate: true,
-                            validator: MultiValidator(
-                              [
-                                RequiredValidator(errorText: "Required"),
-                                EmailValidator(errorText: "Not a Valid Email"),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          TextFormField(
-                            controller: passwordController,
-                            obscureText: _isHidden,
-                            textAlign: TextAlign.center,
-                            onChanged: (value) {
-                              password = value;
-                            },
-                            decoration: kTextFieldDecoration.copyWith(
-                              labelText: 'Password',
-                              suffixIcon: IconButton(
-                                icon: _isHidden
-                                    ? Icon(Icons.visibility_off)
-                                    : Icon(Icons.visibility),
-                                onPressed: _togglePasswordVisibility,
-                              ),
-                            ),
-                            autovalidate: true,
-                            validator: MultiValidator(
-                              [
-                                RequiredValidator(errorText: "Required"),
-                                MinLengthValidator(6,
-                                    errorText: "Must be at least 6 characters"),
-                                MaxLengthValidator(15,
-                                    errorText:
-                                        "Must be less than 15 characters"),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RoundedButton(
-                              buttonColor: kdarkColour,
-                              buttonTitle: 'Log In',
-                              onPressed: () {
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                signIn(email, password);
-                              }),
-                          RoundedButton(
-                              buttonColor: kdarkColour,
-                              buttonTitle: 'Register',
-                              onPressed: () {
-                                Navigator.pushNamed(context, RegisterScreen.id);
-                              }),
-                          FlatButton(
-                              onPressed: null,
-                              child: Text(
-                                'Forgot Password',
-                                style: TextStyle(color: Colors.black),
-                              ))
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -163,7 +162,7 @@ class _LogInScreenState extends State<LogInScreen> {
     var jsonResponse = null;
 
     var response =
-        await http.post("http://192.168.0.123:8000/api/login", body: data);
+        await http.post("http://192.168.0.108:8000/api/login", body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');

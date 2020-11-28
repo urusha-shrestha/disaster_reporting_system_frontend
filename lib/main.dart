@@ -7,6 +7,7 @@ import 'package:fyp/screens/logIn_screen.dart';
 import 'package:fyp/screens/register_screen.dart';
 import 'package:fyp/screens/report_screen.dart';
 import 'package:fyp/screens/reported_disaster_screen.dart';
+import 'package:fyp/screens/forgotpassword.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LogInScreen.id: (context) => LogInScreen(),
         RegisterScreen.id: (context) => RegisterScreen(),
+        ForgotPassword.id: (context) => ForgotPassword(),
         ReportedDisasterScreen.id: (context) => ReportedDisasterScreen(),
         CustomMenuBar.id: (context) => CustomMenuBar(),
         ReportScreen.id: (context) => ReportScreen(),

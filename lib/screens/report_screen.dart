@@ -14,7 +14,7 @@ class ReportScreen extends StatelessWidget {
               Navigator.pushReplacementNamed(context, CustomMenuBar.id);
             },
             child: Icon(Icons.menu)),
-        title: Text('Report A Disasters'),
+        title: Text('Report A Disaster'),
       ),
       body: Container(
         color: kbackgroundColour,
