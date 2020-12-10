@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fyp/components/rounded_button.dart';
+import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/constants.dart';
 
 class ForgotPassword extends StatelessWidget {
@@ -42,11 +42,7 @@ class ForgotPassword extends StatelessWidget {
                   SizedBox(
                     height: 30.0,
                   ),
-                  RoundedButton(
-                    onPressed: null,
-                    buttonColor: kdarkColour,
-                    buttonTitle: 'Send Reset Link',
-                  ),
+                  CustomButton(onPressed: null, buttonText: 'Send Reset Link'),
                 ],
               ),
             ),

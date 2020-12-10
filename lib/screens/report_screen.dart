@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:fyp/constants.dart';
-import 'package:fyp/components/menu_bar.dart';
+import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/side_drawer.dart';
 
 class ReportScreen extends StatelessWidget {
   static const String id = 'report_screen';
@@ -16,8 +16,10 @@ class ReportScreen extends StatelessWidget {
             child: Icon(Icons.menu)),
         title: Text('Report A Disaster'),
       ),
-      body: Container(
-        color: kbackgroundColour,
+      body: SingleChildScrollView(
+        child: Container(
+          color: kbackgroundColour,
+        ),
       ),
     );
   }

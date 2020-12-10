@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+const kprimaryColour = Color(0xFFFEBF78);
 const kbackgroundColour = Color(0xFFd0f5eb);
 const kforegroundColour = Color(0xFFa5ecd7);
 const kdarkColour = Color(0xFF41aea9);

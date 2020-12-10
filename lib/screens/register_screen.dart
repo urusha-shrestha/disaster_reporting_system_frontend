@@ -5,8 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fyp/screens/logIn_screen.dart';
-import 'package:fyp/components/menu_bar.dart';
-import 'package:fyp/components/rounded_button.dart';
+import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/side_drawer.dart';
+import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/constants.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -39,48 +39,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
         title: Text('REGISTER'),
         backgroundColor: kappBarColour,
       ),
-      body: Container(
-        color: kbackgroundColour,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-          child: Card(
-            elevation: 10.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            color: kforegroundColour,
-            child: Form(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  buildResuableColumn(
-                    label: 'Full Name',
-                    controller: nameController,
-                  ),
-                  buildResuableColumn(
-                    label: 'Email',
-                    controller: emailController,
-                  ),
-                  buildResuableColumn(
-                    label: 'Password',
-                    controller: passwordController,
-                  ),
-                  buildResuableColumn(
-                    label: 'Confirm Password',
-                    controller: confirmPasswordController,
-                  ),
-                  RoundedButton(
-                    onPressed: () {
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      register(nameController.text, emailController.text,
-                          passwordController.text);
-                    },
-                    buttonColor: kdarkColour,
-                    buttonTitle: 'Register',
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
+          color: kbackgroundColour,
+          child: Center(
+            child: Card(
+              elevation: 10.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              color: kforegroundColour,
+              child: Form(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    buildResuableColumn(
+                      label: 'Full Name',
+                      controller: nameController,
+                    ),
+                    buildResuableColumn(
+                      label: 'Email',
+                      controller: emailController,
+                    ),
+                    buildResuableColumn(
+                      label: 'Password',
+                      controller: passwordController,
+                    ),
+                    buildResuableColumn(
+                      label: 'Confirm Password',
+                      controller: confirmPasswordController,
+                    ),
+                    CustomButton(
+                      onPressed: () {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        register(nameController.text, emailController.text,
+                            passwordController.text);
+                      },
+                      buttonText: 'Register',
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
