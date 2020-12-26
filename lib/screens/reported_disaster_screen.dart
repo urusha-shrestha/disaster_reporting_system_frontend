@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fyp/screens/app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:fyp/constants.dart';
-import 'package:fyp/screens/logIn_screen.dart';
+import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/logIn_and_signup/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fyp/controllers/databasehelper.dart';
 
@@ -22,7 +23,6 @@ class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
   double yOffset = 0;
   double scaleFactor = 1;
   bool isDrawerOpen = false;
-
   SharedPreferences sharedPreferences;
   var data;
 
@@ -69,61 +69,53 @@ class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
         borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0),
       ),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kappBarColour,
-          leading: isDrawerOpen
-              ? IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    setState(() {
-                      xOffset = 0;
-                      yOffset = 0;
-                      scaleFactor = 1;
-                      isDrawerOpen = false;
-                    });
-                  })
-              : IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {
-                    setState(() {
-                      xOffset = 230;
-                      yOffset = 100;
-                      scaleFactor = 0.8;
-                      isDrawerOpen = true;
-                    });
-                  }),
-          title: Text('Reported Disasters'),
+        appBar: buildAppBar(
+          isDrawerOpen: isDrawerOpen,
+          onPressedOpen: () {
+            setState(() {
+              xOffset = 0;
+              yOffset = 0;
+              scaleFactor = 1;
+              isDrawerOpen = false;
+            });
+          },
+          onPressedClosed: () {
+            setState(() {
+              xOffset = 230;
+              yOffset = 100;
+              scaleFactor = 0.8;
+              isDrawerOpen = true;
+            });
+          },
+          title: 'Reported Disasters',
         ),
         body: Container(
           color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Container(
-              color: kforegroundColour,
               child: ListView.separated(
                 itemCount: 10,
                 separatorBuilder: (BuildContext context, int index) {
                   return Divider(
-                    color: kbackgroundColour,
                     thickness: 8,
+                    color: Colors.white,
                   );
                 },
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      leading: Text(
-                        '1',
-                        style: TextStyle(
-                            fontSize: 25.0, fontWeight: FontWeight.bold),
-                      ),
-                      title: Text(
-                        'One',
-                        style: TextStyle(
-                            fontSize: 25.0, fontWeight: FontWeight.w600),
+                    child: Container(
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          border: Border.all(
+                            color: kprimaryColour,
+                          )),
+                      child: Column(
+                        children: [
+                          Text('Reports'),
+                        ],
                       ),
                     ),
                   );

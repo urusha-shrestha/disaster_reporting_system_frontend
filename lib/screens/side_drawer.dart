@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
-import 'package:fyp/screens/logIn_screen.dart';
-import 'package:fyp/screens/report_screen.dart';
-import 'package:fyp/screens/reported_disaster_screen.dart';
+import 'package:fyp/stack.dart';
 
 class DrawerScreen extends StatelessWidget {
   static const String id = 'side_drawer';
@@ -29,9 +27,33 @@ class DrawerScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              GestureDetector(child: Text('Home')),
-              GestureDetector(child: Text('Report a Disaster')),
-              GestureDetector(child: Text('Articles')),
+              GestureDetector(
+                child: Text('Home'),
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => Stack1()),
+                      (Route<dynamic> route) => false);
+                },
+              ),
+              GestureDetector(
+                child: Text('Report a Disaster'),
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => Stack2()),
+                      (Route<dynamic> route) => false);
+                },
+              ),
+              GestureDetector(
+                child: Text('Articles'),
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => Stack3()),
+                      (Route<dynamic> route) => false);
+                },
+              ),
             ],
           ),
           Row(

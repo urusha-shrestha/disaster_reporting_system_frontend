@@ -1,24 +1,59 @@
 import "package:flutter/material.dart";
 import 'package:fyp/constants.dart';
-import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/side_drawer.dart';
 
-class ReportScreen extends StatelessWidget {
+class ReportScreen extends StatefulWidget {
   static const String id = 'report_screen';
+
+  @override
+  _ReportScreenState createState() => _ReportScreenState();
+}
+
+class _ReportScreenState extends State<ReportScreen> {
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+  bool isDrawerOpen = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kappBarColour,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pushReplacementNamed(context, CustomMenuBar.id);
-            },
-            child: Icon(Icons.menu)),
-        title: Text('Report A Disaster'),
+    return AnimatedContainer(
+      transform: Matrix4.translationValues(xOffset, yOffset, 0)
+        ..scale(scaleFactor)
+        ..rotateY(isDrawerOpen ? -0.5 : 0),
+      duration: Duration(milliseconds: 250),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: kbackgroundColour,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kprimaryColour,
+          leading: isDrawerOpen
+              ? IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    setState(() {
+                      xOffset = 0;
+                      yOffset = 0;
+                      scaleFactor = 1;
+                      isDrawerOpen = false;
+                    });
+                  })
+              : IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    setState(() {
+                      xOffset = 230;
+                      yOffset = 100;
+                      scaleFactor = 0.8;
+                      isDrawerOpen = true;
+                    });
+                  }),
+          title: Text('Report A Disaster'),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
+          ),
         ),
       ),
     );

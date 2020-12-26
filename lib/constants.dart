@@ -23,3 +23,11 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+const kgradientBackground = BoxDecoration(
+  gradient: LinearGradient(
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+    colors: [kprimaryColour, Colors.white],
+  ),
+);
