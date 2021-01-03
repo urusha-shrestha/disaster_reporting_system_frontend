@@ -54,7 +54,7 @@ class _Register_ButtonState extends State<Register_Button> {
     var jsonResponse = null;
 
     var response =
-        await http.post("http://192.168.0.106:8000/api/register", body: data);
+        await http.post("http://192.168.0.108:8000/api/register", body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');

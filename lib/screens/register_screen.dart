@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:form_field_validator/form_field_validator.dart';
 import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/logIn_and_signup/main_screen.dart';
-import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/side_drawer.dart';
 import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/constants.dart';
 
@@ -167,3 +167,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 }
+*/

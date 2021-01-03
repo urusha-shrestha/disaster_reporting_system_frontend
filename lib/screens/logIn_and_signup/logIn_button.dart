@@ -31,16 +31,11 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
             CustomButton(
               onPressed: () {
                 if (widget.formKey.currentState.validate()) {
-                  signIn(widget.email, widget.password);
-                  /*Navigator.of(context)
-                                                            .pushAndRemoveUntil(
-                                                                MaterialPageRoute(
-                                                                    builder: (BuildContext
-                                                                            context) =>
-                                                                        Stack1()),
-                                                                (Route<dynamic>
-                                                                        route) =>
-                                                                    false);*/
+                  /*signIn(widget.email, widget.password);*/
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => Stack1()),
+                      (Route<dynamic> route) => false);
                 }
                 ;
               },
@@ -61,7 +56,7 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
     var jsonResponse = null;
 
     var response =
-        await http.post("http://192.168.0.106:8000/api/login", body: data);
+        await http.post("http://192.168.0.108:8000/api/login", body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');
