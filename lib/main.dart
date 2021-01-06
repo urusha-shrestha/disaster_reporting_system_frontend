@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp/screens/articles_screen.dart';
 import 'package:fyp/screens/sideNav/side_drawer.dart';
 import 'package:fyp/screens/logIn_and_signup/main_screen.dart';
-import 'package:fyp/screens/report_screen.dart';
+import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/report/report_screen.dart';
 import 'package:fyp/screens/reported_disaster_screen.dart';
 import 'package:fyp/screens/forgotpassword.dart';
 

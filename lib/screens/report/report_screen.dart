@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:fyp/constants.dart';
+import 'package:fyp/screens/report/report_form.dart';
 
 class ReportScreen extends StatefulWidget {
   static const String id = 'report_screen';
@@ -51,9 +52,7 @@ class _ReportScreenState extends State<ReportScreen> {
           title: Text('Report A Disaster'),
         ),
         body: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-          ),
+          child: ReportForm(),
         ),
       ),
     );
