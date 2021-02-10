@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
-
-List<String> disasters = [
-  'Select',
-  'Earthquake',
-  'Flood',
-  'Landslide',
-  'Fire',
-];
+import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/demo_lists/demoDisasterList.dart';
 
 class dropDown extends StatefulWidget {
   const dropDown({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
-import 'package:fyp/screens/logIn_and_signup/main_screen.dart';
+import 'package:fyp/screens/logIn_and_signup/body.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -23,7 +23,7 @@ class _Register_ButtonState extends State<Register_Button> {
   Widget build(BuildContext context) {
     return Positioned(
       left: MediaQuery.of(context).size.width * 0.31,
-      bottom: 18,
+      bottom: MediaQuery.of(context).size.height * 0.02,
       child: Align(
         alignment: Alignment(0, 40),
         child: Row(
@@ -74,7 +74,7 @@ class _Register_ButtonState extends State<Register_Button> {
         sharedPreferences.setString("token", jsonResponse['token']);
 
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => LogInScreen()),
+            MaterialPageRoute(builder: (BuildContext context) => Body()),
             (Route<dynamic> route) => false);
       }
     } else {

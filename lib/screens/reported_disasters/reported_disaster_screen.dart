@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/screens/app_bar.dart';
+import 'package:fyp/screens/logIn_and_signup/body.dart';
+import 'package:fyp/screens/reported_disasters/body.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:fyp/constants.dart';
-import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/logIn_and_signup/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fyp/controllers/databasehelper.dart';
 
@@ -53,7 +53,7 @@ class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
     sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("token") == null) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => LogInScreen()),
+          MaterialPageRoute(builder: (BuildContext context) => Body()),
           (Route<dynamic> route) => false);
     }
   }
@@ -89,41 +89,7 @@ class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
           },
           title: 'Reported Disasters',
         ),
-        body: Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              child: ListView.separated(
-                itemCount: 10,
-                separatorBuilder: (BuildContext context, int index) {
-                  return Divider(
-                    thickness: 8,
-                    color: Colors.white,
-                  );
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(
-                            color: kprimaryColour,
-                          )),
-                      child: Column(
-                        children: [
-                          Text('Reports'),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ),
+        body: ReportedBody(),
       ),
     );
   }

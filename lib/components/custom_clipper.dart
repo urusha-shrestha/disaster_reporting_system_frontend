@@ -34,6 +34,7 @@ class SignUpClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path clip = new Path();
+
     clip.moveTo(size.width, 70);
     clip.lineTo(size.width, size.height - 70);
     clip.quadraticBezierTo(

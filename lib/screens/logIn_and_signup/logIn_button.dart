@@ -20,8 +20,8 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: MediaQuery.of(context).size.width * 0.25,
-      bottom: MediaQuery.of(context).size.height * 0.01,
+      left: MediaQuery.of(context).size.width * 0.31,
+      bottom: MediaQuery.of(context).size.height * 0.02,
       child: Align(
         alignment: Alignment(0, 10),
         child: Row(

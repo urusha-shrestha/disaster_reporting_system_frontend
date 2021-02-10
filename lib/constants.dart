@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 const kprimaryColour = Color(0xFFFEBF78);
 const kbackgroundColour = Color(0xFFd0f5eb);
@@ -15,11 +14,11 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: kdarkColour, width: 2.0),
+    borderSide: BorderSide(color: kprimaryColour, width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: kdarkColour, width: 3.0),
+    borderSide: BorderSide(color: kprimaryColour, width: 3.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );

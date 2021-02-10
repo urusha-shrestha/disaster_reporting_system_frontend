@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 Positioned buildBottomText({BuildContext context, islogin, onTap}) {
   return Positioned(
     bottom: MediaQuery.of(context).size.height * 0.07,
-    left: MediaQuery.of(context).size.width * 0.43,
+    left: MediaQuery.of(context).size.width * 0.45,
     child: GestureDetector(
       onTap: onTap,
       child: Text(

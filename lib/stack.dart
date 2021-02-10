@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fyp/screens/articles_screen.dart';
-import 'package:fyp/screens/profile.dart';
-import 'package:fyp/screens/reported_disaster_screen.dart';
+import 'package:fyp/screens/articles/articles_screen.dart';
+import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/profile/profile.dart';
+import 'package:fyp/screens/report/report_screen.dart';
+import 'package:fyp/screens/reported_disasters/reported_disaster_screen.dart';
 import 'package:fyp/screens/sideNav/side_drawer.dart';
-import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/report/report_screen.dart';
 
 class Stack1 extends StatelessWidget {
   @override

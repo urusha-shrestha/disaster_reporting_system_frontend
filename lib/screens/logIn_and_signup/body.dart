@@ -5,14 +5,14 @@ import '../../constants.dart';
 import 'bottom_text.dart';
 import 'top_text.dart';
 
-class LogInScreen extends StatefulWidget {
-  static const String id = 'logIn_page';
+class Body extends StatefulWidget {
+  static const String id = 'body';
 
   @override
-  _LogInScreenState createState() => _LogInScreenState();
+  _BodyState createState() => _BodyState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
   bool islogin = true;
   bool _isLoading = false;
@@ -73,6 +73,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           ),
                           islogin == false
                               ? Sign_Up(
+                                  formKey: _formKey,
                                   isLogin: islogin,
                                   name: nameController,
                                   email: registeremailController,

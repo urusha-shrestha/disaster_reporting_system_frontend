@@ -8,13 +8,15 @@ class CustomTextField extends StatefulWidget {
       @required this.label,
       this.suffixIcon,
       this.controller,
-      this.keyboardType});
+      this.keyboardType,
+      this.hideText});
   final Function validator;
   final icon;
   final suffixIcon;
   final String label;
   final controller;
   final keyboardType;
+  final bool hideText;
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
 }
@@ -32,6 +34,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintText: widget.label,
         hintStyle: GoogleFonts.lato(fontSize: 16, color: Colors.grey[500]),
       ),
+      obscureText: widget.hideText == null ? false : widget.hideText,
     );
   }
 }

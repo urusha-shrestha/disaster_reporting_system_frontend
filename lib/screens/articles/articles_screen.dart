@@ -1,14 +1,15 @@
 import "package:flutter/material.dart";
 import 'package:fyp/constants.dart';
+import 'package:fyp/screens/articles/body.dart';
 
-class ProfileScreen extends StatefulWidget {
-  static const String id = 'profile_screen';
+class ArticlesScreen extends StatefulWidget {
+  static const String id = 'articles_screen';
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _ArticlesScreenState createState() => _ArticlesScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ArticlesScreenState extends State<ArticlesScreen> {
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
@@ -48,13 +49,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       isDrawerOpen = true;
                     });
                   }),
-          title: Text('Profile'),
+          title: Text('Articles'),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-          ),
-        ),
+        body: ArticlesBody(),
       ),
     );
   }

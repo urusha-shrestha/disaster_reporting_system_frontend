@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
+import 'package:fyp/screens/logIn_and_signup/body.dart';
 import 'package:fyp/stack.dart';
 import 'menu_items.dart';
 
@@ -97,10 +98,16 @@ class DrawerScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.01,
           ),
           GestureDetector(
-              child: Text(
-            'Log Out',
-            style: TextStyle(fontSize: 20.0),
-          )),
+            child: Text(
+              'Log Out',
+              style: TextStyle(fontSize: 20.0),
+            ),
+            onTap: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (BuildContext context) => Body()),
+                  (Route<dynamic> route) => false);
+            },
+          ),
         ],
       ),
     );

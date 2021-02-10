@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:fyp/screens/articles_screen.dart';
+import 'package:fyp/screens/articles/articleDisplay.dart';
+import 'package:fyp/screens/articles/articleList.dart';
+import 'package:fyp/screens/articles/articles_screen.dart';
+import 'package:fyp/screens/report/report_screen.dart';
+import 'package:fyp/screens/reported_disasters/reported_disaster_screen.dart';
 import 'package:fyp/screens/sideNav/side_drawer.dart';
-import 'package:fyp/screens/logIn_and_signup/main_screen.dart';
-import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/report/report_screen.dart';
-import 'package:fyp/screens/reported_disaster_screen.dart';
-import 'package:fyp/screens/forgotpassword.dart';
+import 'package:fyp/screens/logIn_and_signup/body.dart';
+import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/screens/forgotpassword/forgotpassword.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,16 +14,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LogInScreen(),
-      initialRoute: LogInScreen.id,
+      home: Body(),
+      initialRoute: Body.id,
       routes: {
-        LogInScreen.id: (context) => LogInScreen(),
+        Body.id: (context) => Body(),
         /*RegisterScreen.id: (context) => RegisterScreen(),*/
         ForgotPassword.id: (context) => ForgotPassword(),
         ReportedDisasterScreen.id: (context) => ReportedDisasterScreen(),
         DrawerScreen.id: (context) => DrawerScreen(),
         ReportScreen.id: (context) => ReportScreen(),
         ArticlesScreen.id: (context) => ArticlesScreen(),
+        ArticleList.id: (context) => ArticleList(),
+        Display.id: (context) => Display(),
       },
     );
   }
