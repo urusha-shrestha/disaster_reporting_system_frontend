@@ -15,7 +15,7 @@ class ForgotPassword extends StatelessWidget {
           decoration: kgradientBackground,
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 160.0),
             child: Center(
               child: Container(
                 child: Card(
@@ -25,7 +25,7 @@ class ForgotPassword extends StatelessWidget {
                   ),
                   color: Colors.white,
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(30.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -34,7 +34,7 @@ class ForgotPassword extends StatelessWidget {
                           style: TextStyle(fontSize: 20.0),
                         ),
                         SizedBox(
-                          height: 40.0,
+                          height: 15.0,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(15.0),
@@ -60,7 +60,7 @@ class ForgotPassword extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 50.0,
+                          height: 20.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +74,7 @@ class ForgotPassword extends StatelessWidget {
                                 },
                                 buttonText: 'Send Reset Link'),
                             SizedBox(
-                              width: 50.0,
+                              width: 20.0,
                             ),
                             CustomButton(
                                 onPressed: () {

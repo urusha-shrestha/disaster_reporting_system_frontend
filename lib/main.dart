@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ProfileScreen(),
-      initialRoute: ProfileScreen.id,
+      home: ForgotPassword(),
+      initialRoute: ForgotPassword.id,
       routes: {
         Body.id: (context) => Body(),
         /*RegisterScreen.id: (context) => RegisterScreen(),*/
