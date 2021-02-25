@@ -1,9 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/menu_bar.dart';
 import 'package:fyp/constants.dart';
+import 'package:fyp/screens/logIn_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ReportedDisasterScreen extends StatelessWidget {
+class ReportedDisasterScreen extends StatefulWidget {
   static const String id = 'reported_disaster_screen';
+
+  @override
+  _ReportedDisasterScreenState createState() => _ReportedDisasterScreenState();
+}
+
+class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
+  SharedPreferences sharedPreferences;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => LogInScreen()),
+          (Route<dynamic> route) => false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
