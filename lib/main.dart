@@ -3,6 +3,7 @@ import 'package:fyp/screens/articles/articleDisplay.dart';
 import 'package:fyp/screens/articles/articleList.dart';
 import 'package:fyp/screens/articles/articles_screen.dart';
 import 'package:fyp/screens/forgotpassword/forgotpassword.dart';
+import 'package:fyp/screens/profile/profile.dart';
 import 'package:fyp/screens/report/report_screen.dart';
 import 'package:fyp/screens/reported_disasters/reported_disaster_screen.dart';
 import 'package:fyp/screens/sideNav/side_drawer.dart';
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ReportScreen(),
-      initialRoute: ReportScreen.id,
+      home: ProfileScreen(),
+      initialRoute: ProfileScreen.id,
       routes: {
         Body.id: (context) => Body(),
         /*RegisterScreen.id: (context) => RegisterScreen(),*/
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         ArticlesScreen.id: (context) => ArticlesScreen(),
         ArticleList.id: (context) => ArticleList(),
         Display.id: (context) => Display(),
+        ProfileScreen.id: (context) => ProfileScreen(),
         Splash.id: (context) => Splash(),
       },
     );
