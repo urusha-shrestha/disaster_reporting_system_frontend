@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fyp/screens/app_bar.dart';
 import 'package:fyp/screens/logIn_and_signup/body.dart';
 import 'package:fyp/screens/reported_disasters/body.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fyp/controllers/databasehelper.dart';
 
 class ReportedDisasterScreen extends StatefulWidget {
   ReportedDisasterScreen({this.reportData, this.dataLength});
   final reportData;
-  final dataLength;
+  final int dataLength;
 
   static const String id = 'reported_disaster_screen';
 
@@ -24,29 +21,11 @@ class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
   double scaleFactor = 1;
   bool isDrawerOpen = false;
   SharedPreferences sharedPreferences;
-  var data;
 
   @override
   void initState() {
     super.initState();
-    //checkLoginStatus();
-    //getReport();
-  }
-
-  getReport() async {
-    DatabaseHelper databaseHelper = DatabaseHelper();
-    var reportData = await databaseHelper.getData();
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return ReportedDisasterScreen(
-        reportData: reportData,
-        dataLength: reportData.length,
-      );
-    }));
-  }
-
-  Future<List> getreportsData() async {
-    final response = await http.get("http://192.168.0.108:8000/api/reports");
-    return json.decode(response.body);
+    checkLoginStatus();
   }
 
   checkLoginStatus() async {
@@ -58,7 +37,6 @@ class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
     }
   }
 
-  @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)
@@ -89,7 +67,10 @@ class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
           },
           title: 'Reported Disasters',
         ),
-        body: ReportedBody(),
+        body: ReportedBody(
+          reportData: widget.reportData,
+          dataLength: widget.dataLength,
+        ),
       ),
     );
   }

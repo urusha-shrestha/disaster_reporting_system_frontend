@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
+import 'package:fyp/controllers/methods.dart';
 import 'package:fyp/screens/logIn_and_signup/body.dart';
 import 'package:fyp/stack.dart';
 import 'menu_items.dart';
@@ -60,10 +61,7 @@ class DrawerScreen extends StatelessWidget {
                 icon: Icons.home,
                 label: 'Home',
                 onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => Stack1()),
-                      (Route<dynamic> route) => false);
+                  getReport(context);
                 },
               ),
               SizedBox(
@@ -86,10 +84,7 @@ class DrawerScreen extends StatelessWidget {
                 icon: Icons.article,
                 label: 'Articles',
                 onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => Stack3()),
-                      (Route<dynamic> route) => false);
+                  getCategories(context);
                 },
               ),
             ],

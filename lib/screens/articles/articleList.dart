@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
-import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/demo_lists/demoDisasterList.dart';
+import 'package:fyp/demo_lists/demoDisasterList.dart';
 import 'package:fyp/screens/articles/articleDisplay.dart';
 
 class ArticleList extends StatelessWidget {

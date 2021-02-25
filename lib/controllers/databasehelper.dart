@@ -1,10 +1,10 @@
+import 'package:fyp/controllers/networking.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseHelper {
-  String serverUrl = "http://192.168.0.108:8000/api";
-
+  String serverUrl = "http://192.168.0.110/api";
   var status;
   var token;
 
@@ -44,18 +44,25 @@ class DatabaseHelper {
     }
   }
 
-  Future<dynamic> getData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    final key = 'token';
-    final value = sharedPreferences.get(key) ?? 0;
+  Future<dynamic> getReportsData() async {
+    var url = '$serverUrl/reports';
+    NetworkHelper networkHelper = NetworkHelper(url);
+    List reports = await networkHelper.getData();
+    return reports;
+  }
 
-    String myUrl = "$serverUrl/reports";
-    http.Response response = await http.get(myUrl, headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $value'
-    });
-    var reportdata = json.decode(response.body);
-    return reportdata;
+  Future<dynamic> getCategoriesData() async {
+    var url = '$serverUrl/category';
+    NetworkHelper networkHelper = NetworkHelper(url);
+    List categories = await networkHelper.getData();
+    return categories;
+  }
+
+  Future<dynamic> getArticlesData() async {
+    var url = '$serverUrl/articles';
+    NetworkHelper networkHelper = NetworkHelper(url);
+    List articles = await networkHelper.getData();
+    return articles;
   }
 
   _save(String token) async {

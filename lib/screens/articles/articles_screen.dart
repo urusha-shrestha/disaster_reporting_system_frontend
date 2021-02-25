@@ -3,6 +3,10 @@ import 'package:fyp/constants.dart';
 import 'package:fyp/screens/articles/body.dart';
 
 class ArticlesScreen extends StatefulWidget {
+  ArticlesScreen({this.categories, this.dataLength});
+  final categories;
+  final int dataLength;
+
   static const String id = 'articles_screen';
 
   @override
@@ -51,7 +55,10 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
                   }),
           title: Text('Articles'),
         ),
-        body: ArticlesBody(),
+        body: ArticlesBody(
+          categories: widget.categories,
+          dataLength: widget.dataLength,
+        ),
       ),
     );
   }

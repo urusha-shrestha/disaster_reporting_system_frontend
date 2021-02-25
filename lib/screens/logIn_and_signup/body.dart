@@ -13,7 +13,8 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final _formKey = GlobalKey<FormState>();
+  final _LogInformKey = GlobalKey<FormState>();
+  final _RegisterformKey = GlobalKey<FormState>();
   bool islogin = true;
   bool _isLoading = false;
   bool loginfail = false;
@@ -63,7 +64,7 @@ class _BodyState extends State<Body> {
                       child: Stack(
                         children: [
                           Log_In(
-                            formKey: _formKey,
+                            formKey: _LogInformKey,
                             isLogin: islogin,
                             email: emailController,
                             password: passwordController,
@@ -73,7 +74,7 @@ class _BodyState extends State<Body> {
                           ),
                           islogin == false
                               ? Sign_Up(
-                                  formKey: _formKey,
+                                  formKey: _RegisterformKey,
                                   isLogin: islogin,
                                   name: nameController,
                                   email: registeremailController,

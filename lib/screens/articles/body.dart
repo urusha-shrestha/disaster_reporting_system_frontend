@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Urusha/AndroidStudioProjects/fyp/lib/demo_lists/demoDisasterList.dart';
+import 'package:fyp/demo_lists/demoDisasterList.dart';
 import 'package:fyp/screens/articles/articleList.dart';
 import '../../constants.dart';
 
 class ArticlesBody extends StatelessWidget {
+  ArticlesBody({this.categories, this.dataLength});
+  final categories;
+  final int dataLength;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +16,7 @@ class ArticlesBody extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Container(
           child: ListView.separated(
-            itemCount: disasters.length,
+            itemCount: dataLength,
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
                 thickness: 8,
@@ -21,6 +25,7 @@ class ArticlesBody extends StatelessWidget {
             },
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
+                hoverColor: kprimaryColour,
                 onTap: () {
                   Navigator.of(context).pushNamed(ArticleList.id);
                 },
@@ -37,16 +42,16 @@ class ArticlesBody extends StatelessWidget {
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text(disasters[index]),
+                          child: Text('${categories[index]['category']}'),
                         ),
                       ),
                     ),
-                    Container(
+                    /*Container(
                       child: Icon(
                         Icons.picture_in_picture_alt_outlined,
                         size: 50.0,
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               );
