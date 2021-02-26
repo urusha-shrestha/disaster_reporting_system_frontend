@@ -50,9 +50,9 @@ class Stack3 extends StatelessWidget {
         children: [
           DrawerScreen(),
           ArticlesScreen(
-            categories: categories,
-            dataLength: dataLength,
-          ),
+              /* categories: categories,
+            dataLength: dataLength,*/
+              ),
         ],
       ),
     );

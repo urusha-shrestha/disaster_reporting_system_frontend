@@ -56,9 +56,9 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
           title: Text('Articles'),
         ),
         body: ArticlesBody(
-          categories: widget.categories,
-          dataLength: widget.dataLength,
-        ),
+            /* categories: widget.categories,
+          dataLength: widget.dataLength,*/
+            ),
       ),
     );
   }

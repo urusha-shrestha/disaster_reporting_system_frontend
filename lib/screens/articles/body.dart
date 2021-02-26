@@ -13,13 +13,13 @@ class ArticlesBody extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(5.0),
         child: Container(
           child: ListView.separated(
-            itemCount: dataLength,
+            itemCount: disasters.length,
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
-                thickness: 8,
+                thickness: 2,
                 color: Colors.white,
               );
             },
@@ -32,17 +32,27 @@ class ArticlesBody extends StatelessWidget {
                 title: Stack(
                   alignment: Alignment.centerLeft,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        border: Border.all(
-                          color: kprimaryColour,
-                        ),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Text('${categories[index]['category']}'),
+                    Card(
+                      elevation: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            border:
+                                Border.all(color: kprimaryColour, width: 2.5),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text(
+                                /*'${categories[index]['category']}'*/
+                                '${disasters[index]}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
