@@ -29,11 +29,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 10,
+              height: 5,
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 25.0),
+              padding: const EdgeInsets.only(
+                  left: 8.0, top: 25.0, right: 8.0, bottom: 5.0),
               child: Container(
                 child: isDrawerOpen
                     ? IconButton(

@@ -84,11 +84,11 @@ class DrawerScreen extends StatelessWidget {
                 icon: Icons.article,
                 label: 'Articles',
                 onTap: () {
-                  /*getCategories(context);*/
-                  Navigator.of(context).pushAndRemoveUntil(
+                  getCategories(context);
+                  /*Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (BuildContext context) => Stack3()),
-                      (Route<dynamic> route) => false);
+                      (Route<dynamic> route) => false);*/
                 },
               ),
             ],

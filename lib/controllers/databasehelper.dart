@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseHelper {
-  String serverUrl = "http://192.168.0.110/api";
+  String serverUrl = "http://192.168.0.110:8000/api";
   var status;
   var token;
 
-  void sendReport(
+/*  void sendReport(
       String _typeController,
       String _locationController,
       String _dateController,
@@ -41,8 +41,9 @@ class DatabaseHelper {
     } else {
       print('jsonResponse:${jsonResponse["token"]}');
       _save(jsonResponse["token"]);
+      print('Report has been sent');
     }
-  }
+  }*/
 
   Future<dynamic> getReportsData() async {
     var url = '$serverUrl/reports';

@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
+import 'package:fyp/controllers/networking.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
 
 class ConfirmDialog extends StatelessWidget {
-  const ConfirmDialog({
-    Key key,
-  }) : super(key: key);
+  ConfirmDialog(
+      {@required this.date,
+      @required this.time,
+      @required this.location,
+      @required this.disasterType,
+      @required this.contact,
+      this.description});
 
+  final String date;
+  final String time;
+  final String location;
+  final String disasterType;
+  final String contact;
+  final String description;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -55,22 +69,90 @@ class ConfirmDialog extends StatelessWidget {
                   decoration:
                       BoxDecoration(border: Border.all(color: kprimaryColour)),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 400.0,
-                      )
+                      Confirm_Text(textValue: 'Date: $date'),
+                      Confirm_Text(textValue: 'Time: $time'),
+                      Confirm_Text(textValue: 'Location: $location'),
+                      Confirm_Text(textValue: 'Disaster: $disasterType'),
+                      Confirm_Text(
+                          textValue: description.isEmpty
+                              ? 'No description'
+                              : 'Description: $description'),
                     ],
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CustomButton(onPressed: () {}, buttonText: 'Confirm'),
+                child: CustomButton(
+                    onPressed: () {
+                      sendReport(disasterType, location, date, time, contact,
+                          description);
+                    },
+                    buttonText: 'Confirm'),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void sendReport(
+      String _typeController,
+      String _locationController,
+      String _dateController,
+      String _timeController,
+      String _contactController,
+      String _descriptionController) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = sharedPreferences.get(key) ?? 0;
+    var status;
+    var token;
+    var jsonResponse = null;
+
+    Map data = {
+      'disaster_type': _typeController,
+      'location': _locationController,
+      'date': _dateController,
+      'time': _timeController,
+      'contact': _contactController,
+      'description': _descriptionController
+    };
+
+    String myUrl = "http://192.168.0.110:8000/api/reports";
+    final response = await http.post(myUrl,
+        headers: {'Accept': 'application/json'}, body: data);
+
+    status = response.body.contains('error');
+    jsonResponse = json.decode(response.body);
+
+    if (status) {
+      print('jsonResponse: ${jsonResponse["error"]}');
+    } else {
+      print('jsonResponse:${jsonResponse["token"]}');
+      /*_save(jsonResponse["token"]);*/
+      print('Report has been sent');
+    }
+  }
+}
+
+class Confirm_Text extends StatelessWidget {
+  const Confirm_Text({
+    Key key,
+    @required this.textValue,
+  }) : super(key: key);
+
+  final String textValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      textValue,
+      style: TextStyle(
+          decoration: TextDecoration.none, color: Colors.black, fontSize: 25),
     );
   }
 }

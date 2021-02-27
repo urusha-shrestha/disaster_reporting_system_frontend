@@ -16,7 +16,7 @@ class ArticlesBody extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         child: Container(
           child: ListView.separated(
-            itemCount: disasters.length,
+            itemCount: dataLength,
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
                 thickness: 2,
@@ -47,8 +47,8 @@ class ArticlesBody extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
-                                /*'${categories[index]['category']}'*/
-                                '${disasters[index]}',
+                                '${categories[index]['category']}'
+                                /*'${disasters[index]}'*/,
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),

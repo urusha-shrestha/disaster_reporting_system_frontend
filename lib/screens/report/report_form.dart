@@ -16,6 +16,10 @@ class ReportForm extends StatefulWidget {
 
 class _ReportFormState extends State<ReportForm> {
   final _reportformKey = GlobalKey<FormState>();
+  final TextEditingController locationController = new TextEditingController();
+  final TextEditingController contactController = new TextEditingController();
+  final TextEditingController descriptionController =
+      new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +35,20 @@ class _ReportFormState extends State<ReportForm> {
               children: [
                 date_picker(),
                 time_picker(),
-                location(),
+                location(
+                  locationController: locationController,
+                ),
                 dropDown(),
-                description_textbox(),
-                contact(),
+                description_textbox(
+                  descriptionController: descriptionController,
+                ),
+                contact(
+                  contactController: contactController,
+                ),
                 CustomButton(
                     onPressed: () {
                       setState(() {
-                        print(globalTimeValue);
+                        print(descriptionController.text);
                         if (globalDateValue != null) {
                           dateVisible = false;
                           if (globalTimeValue != null) {
@@ -50,7 +60,14 @@ class _ReportFormState extends State<ReportForm> {
                                     pageBuilder: (BuildContext buildContext,
                                         Animation<double> animation,
                                         Animation<double> secondaryAnimation) {
-                                      return ConfirmDialog();
+                                      return ConfirmDialog(
+                                        date: globalDateValue,
+                                        time: globalTimeValue,
+                                        disasterType: dropDownValue,
+                                        location: locationController.text,
+                                        contact: contactController.text,
+                                        description: descriptionController.text,
+                                      );
                                     });
                               }
                             } else {

@@ -53,7 +53,7 @@ class _Register_ButtonState extends State<Register_Button> {
     var jsonResponse = null;
 
     var response =
-        await http.post("http://192.168.0.110/api/register", body: data);
+        await http.post("http://192.168.0.110:8000/api/register", body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');
@@ -61,14 +61,6 @@ class _Register_ButtonState extends State<Register_Button> {
       if (jsonResponse != null) {
         setState(() {
           widget.isLoading = false;
-          /*Fluttertoast.showToast(
-            msg: "Successfully Registered.",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );*/
         });
         sharedPreferences.setString("token", jsonResponse['token']);
 
