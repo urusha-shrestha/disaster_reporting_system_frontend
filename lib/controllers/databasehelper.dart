@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseHelper {
-  String serverUrl = "http://192.168.0.110:8000/api";
+  String serverUrl = "http://192.168.0.104:8000/api";
   var status;
   var token;
 

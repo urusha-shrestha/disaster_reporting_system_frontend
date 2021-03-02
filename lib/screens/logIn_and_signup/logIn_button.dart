@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
+import 'package:fyp/components/snackBar.dart';
 import 'package:fyp/controllers/methods.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,9 +32,14 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
             CustomButton(
               onPressed: () {
                 if (widget.formKey.currentState.validate()) {
-                  signIn(widget.email, widget.password);
+                  try {
+                    logIn(widget.email, widget.password);
+                  } on Exception catch (e) {
+                    createSnackBar('Could not log in', Colors.red, context);
+                  } catch (error) {
+                    createSnackBar('Could not log in', Colors.red, context);
+                  }
                 }
-                ;
               },
               buttonText: 'Login',
             ),
@@ -43,7 +49,7 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
     );
   }
 
-  signIn(String email, password) async {
+  logIn(String email, password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {
       'email': email,
@@ -52,7 +58,7 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
     var jsonResponse = null;
 
     var response =
-        await http.post("http://192.168.0.110:8000/api/login", body: data);
+        await http.post("http://192.168.0.104:8000/api/login", body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');
@@ -63,10 +69,13 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
         });
         sharedPreferences.setString("token", jsonResponse['token']);
         getReport(context);
+        createSnackBar('Successfully logged in', Colors.green, context);
       }
     } else {
       setState(() {
         widget.isLoading = false;
+        createSnackBar(
+            'The email or password is incorrect', Colors.red, context);
       });
       print(response.body);
     }

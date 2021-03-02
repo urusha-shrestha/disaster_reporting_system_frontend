@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
+import 'package:fyp/components/snackBar.dart';
 import 'package:fyp/screens/logIn_and_signup/body.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,7 +54,8 @@ class _Register_ButtonState extends State<Register_Button> {
     var jsonResponse = null;
 
     var response =
-        await http.post("http://192.168.0.110:8000/api/register", body: data);
+        await http.post("http://192.168.0.104:8000/api/register", body: data);
+
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');
@@ -62,8 +64,8 @@ class _Register_ButtonState extends State<Register_Button> {
         setState(() {
           widget.isLoading = false;
         });
+        createSnackBar('Successfully registered', Colors.green, context);
         sharedPreferences.setString("token", jsonResponse['token']);
-
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => Body()),
             (Route<dynamic> route) => false);
@@ -71,6 +73,7 @@ class _Register_ButtonState extends State<Register_Button> {
     } else {
       setState(() {
         widget.isLoading = false;
+        createSnackBar('Could not register', Colors.red, context);
       });
       print(response.body);
     }

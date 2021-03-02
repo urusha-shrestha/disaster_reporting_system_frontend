@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import 'package:fyp/constants.dart';
 import 'package:fyp/screens/report/report_form.dart';
 
+BuildContext scaffoldContext;
+
 class ReportScreen extends StatefulWidget {
   static const String id = 'report_screen';
 
@@ -17,6 +19,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    scaffoldContext = context;
     return AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)
         ..scale(scaleFactor)

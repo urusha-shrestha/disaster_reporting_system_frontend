@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
+import 'package:fyp/components/snackBar.dart';
 import 'package:fyp/controllers/networking.dart';
+import 'package:fyp/screens/report/report_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../constants.dart';
 
 class ConfirmDialog extends StatelessWidget {
@@ -22,14 +23,17 @@ class ConfirmDialog extends StatelessWidget {
   final String disasterType;
   final String contact;
   final String description;
+  BuildContext _context;
+
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Container(
           decoration: BoxDecoration(
-              border: Border.all(color: kprimaryColour), color: Colors.white54),
+              border: Border.all(color: kprimaryColour), color: Colors.white60),
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 0.8,
           child: Column(
@@ -63,23 +67,26 @@ class ConfirmDialog extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Container(
                   width: double.infinity,
                   decoration:
                       BoxDecoration(border: Border.all(color: kprimaryColour)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Confirm_Text(textValue: 'Date: $date'),
-                      Confirm_Text(textValue: 'Time: $time'),
-                      Confirm_Text(textValue: 'Location: $location'),
-                      Confirm_Text(textValue: 'Disaster: $disasterType'),
-                      Confirm_Text(
-                          textValue: description.isEmpty
-                              ? 'No description'
-                              : 'Description: $description'),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Confirm_Text(textValue: 'Date: $date'),
+                        Confirm_Text(textValue: 'Time: $time'),
+                        Confirm_Text(textValue: 'Location: $location'),
+                        Confirm_Text(textValue: 'Disaster: $disasterType'),
+                        Confirm_Text(
+                            textValue: description.isEmpty
+                                ? 'No description'
+                                : 'Description: $description'),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -122,18 +129,24 @@ class ConfirmDialog extends StatelessWidget {
       'description': _descriptionController
     };
 
-    String myUrl = "http://192.168.0.110:8000/api/reports";
+    String myUrl = "http://192.168.0.104:8000/api/reports";
     final response = await http.post(myUrl,
         headers: {'Accept': 'application/json'}, body: data);
 
     status = response.body.contains('error');
     jsonResponse = json.decode(response.body);
 
-    if (status) {
+    if (response.statusCode != 200) {
       print('jsonResponse: ${jsonResponse["error"]}');
+      Navigator.pop(_context);
+      createSnackBar('Could not submit', Colors.red, scaffoldContext);
     } else {
       print('jsonResponse:${jsonResponse["token"]}');
       /*_save(jsonResponse["token"]);*/
+      Navigator.pop(_context);
+      createSnackBar(
+          'Report has been submitted', Colors.green, scaffoldContext);
+      print('$scaffoldContext');
       print('Report has been sent');
     }
   }
@@ -152,7 +165,7 @@ class Confirm_Text extends StatelessWidget {
     return Text(
       textValue,
       style: TextStyle(
-          decoration: TextDecoration.none, color: Colors.black, fontSize: 25),
+          decoration: TextDecoration.none, color: Colors.black, fontSize: 20),
     );
   }
 }
