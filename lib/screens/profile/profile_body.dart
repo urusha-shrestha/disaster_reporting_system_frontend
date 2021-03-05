@@ -5,6 +5,10 @@ import 'package:fyp/screens/reported_disasters/text_row.dart';
 import 'user_details_text.dart';
 
 class ProfileBody extends StatelessWidget {
+  ProfileBody({this.userDetails, this.userReports, this.dataLength});
+  final userDetails;
+  final userReports;
+  final int dataLength;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +18,7 @@ class ProfileBody extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 20.0),
             child: Container(
               child: Text(
-                "User Name",
+                "${userDetails['user']['name']}",
                 style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
               ),
             ),
@@ -28,9 +32,9 @@ class ProfileBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UserDetails(text: 'User Details', bold: FontWeight.w800),
-                UserDetails(text: 'E-mail: user@email.com'),
-                UserDetails(text: 'Reports: 9'),
+                UserDetails(text: 'User Details:', bold: FontWeight.w800),
+                UserDetails(text: 'E-mail: ${userDetails['user']['email']}'),
+                UserDetails(text: 'Reports: $dataLength'),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Container(
@@ -70,7 +74,7 @@ class ProfileBody extends StatelessWidget {
                               child: SizedBox(
                                 height: 320,
                                 child: ListView.builder(
-                                  itemCount: demoReports.length,
+                                  itemCount: dataLength,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return Padding(
@@ -89,30 +93,30 @@ class ProfileBody extends StatelessWidget {
                                               TextRow(
                                                   labelText: 'Report ID: ',
                                                   dataText:
-                                                      '${demoReports[index].id}'),
+                                                      '${userReports[index]['id']}'),
                                               TextRow(
                                                   labelText: 'Date: ',
                                                   dataText:
-                                                      '${demoReports[index].date}'),
+                                                      '${userReports[index]['date']}'),
                                               TextRow(
                                                   labelText: 'Time: ',
                                                   dataText:
-                                                      '${demoReports[index].time}'),
+                                                      '${userReports[index]['time']}'),
                                               TextRow(
                                                   labelText: 'Location: ',
                                                   dataText:
-                                                      '${demoReports[index].location}'),
+                                                      '${userReports[index]['location']}'),
                                               TextRow(
                                                   labelText: 'Disaster Type: ',
                                                   dataText:
-                                                      '${demoReports[index].disasterType}'),
+                                                      '${userReports[index]['disaster_type']}'),
                                               TextRow(
                                                   labelText: 'Description: ',
-                                                  dataText: demoReports[index]
-                                                              .description ==
+                                                  dataText: userReports[index]
+                                                              ['description'] ==
                                                           null
                                                       ? 'No Description'
-                                                      : '${demoReports[index].description}'),
+                                                      : '${userReports[index]['description']}'),
                                               SizedBox(
                                                 height: 10.0,
                                               ),
@@ -128,11 +132,11 @@ class ProfileBody extends StatelessWidget {
                                               ),
                                               TextRow(
                                                   labelText: 'Updates: ',
-                                                  dataText: demoReports[index]
-                                                              .updates ==
+                                                  dataText: userReports[index]
+                                                              ['updates'] ==
                                                           null
                                                       ? 'No Updates'
-                                                      : '${demoReports[index].updates}'),
+                                                      : '${userReports[index]['updates']}'),
                                             ],
                                           ),
                                         ),

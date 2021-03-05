@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/components/snackBar.dart';
+import 'package:fyp/controllers/methods.dart';
 import 'package:fyp/controllers/networking.dart';
 import 'package:fyp/screens/report/report_screen.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +16,8 @@ class ConfirmDialog extends StatelessWidget {
       @required this.location,
       @required this.disasterType,
       @required this.contact,
-      this.description});
+      this.description,
+      @required this.userID});
 
   final String date;
   final String time;
@@ -23,6 +25,7 @@ class ConfirmDialog extends StatelessWidget {
   final String disasterType;
   final String contact;
   final String description;
+  final userID;
   BuildContext _context;
 
   @override
@@ -95,7 +98,8 @@ class ConfirmDialog extends StatelessWidget {
                 child: CustomButton(
                     onPressed: () {
                       sendReport(disasterType, location, date, time, contact,
-                          description);
+                          description, userID);
+                      print(userID.runtimeType);
                     },
                     buttonText: 'Confirm'),
               ),
@@ -106,13 +110,8 @@ class ConfirmDialog extends StatelessWidget {
     );
   }
 
-  void sendReport(
-      String _typeController,
-      String _locationController,
-      String _dateController,
-      String _timeController,
-      String _contactController,
-      String _descriptionController) async {
+  void sendReport(_typeController, _locationController, _dateController,
+      _timeController, _contactController, _descriptionController, id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final key = 'token';
     final value = sharedPreferences.get(key) ?? 0;
@@ -126,10 +125,11 @@ class ConfirmDialog extends StatelessWidget {
       'date': _dateController,
       'time': _timeController,
       'contact': _contactController,
-      'description': _descriptionController
+      'description': _descriptionController,
+      'user_id': id.toString()
     };
 
-    String myUrl = "http://192.168.0.104:8000/api/reports";
+    String myUrl = "http://192.168.0.110:8000/api/reports";
     final response = await http.post(myUrl,
         headers: {'Accept': 'application/json'}, body: data);
 

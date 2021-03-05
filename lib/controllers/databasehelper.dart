@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:fyp/controllers/networking.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseHelper {
-  String serverUrl = "http://192.168.0.104:8000/api";
+  String serverUrl = "http://192.168.0.110:8000/api";
   var status;
   var token;
 
@@ -45,6 +47,36 @@ class DatabaseHelper {
     }
   }*/
 
+  Future<dynamic> getUserData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    token = sharedPreferences.getString("token");
+    var url = '$serverUrl/profile';
+    http.Response response = await http.get(
+      url,
+      headers: {HttpHeaders.authorizationHeader: "Bearer $token"},
+    );
+    if (response.statusCode == 200) {
+      String data = response.body;
+
+      return jsonDecode(data);
+    } else {
+      print(response.statusCode);
+    }
+  }
+
+  Future<dynamic> getUserReportsData(userID) async {
+    var url = '$serverUrl/reports/$userID';
+    http.Response response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> map = json.decode(response.body);
+      List<dynamic> userReports = map["data"];
+      //print(userReports);
+      return userReports;
+    } else {
+      print(response.statusCode);
+    }
+  }
+
   Future<dynamic> getReportsData() async {
     var url = '$serverUrl/reports';
     NetworkHelper networkHelper = NetworkHelper(url);
@@ -59,11 +91,16 @@ class DatabaseHelper {
     return categories;
   }
 
-  Future<dynamic> getArticlesData() async {
-    var url = '$serverUrl/articles';
-    NetworkHelper networkHelper = NetworkHelper(url);
-    List articles = await networkHelper.getData();
-    return articles;
+  Future<dynamic> getArticlesData(categoryID) async {
+    var url = '$serverUrl/articles/$categoryID';
+    http.Response response = await http.get(url);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> map = json.decode(response.body);
+      List<dynamic> articles = map["data"];
+      return articles;
+    } else {
+      print(response.statusCode);
+    }
   }
 
   _save(String token) async {

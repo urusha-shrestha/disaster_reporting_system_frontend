@@ -5,6 +5,9 @@ import 'package:fyp/demo_lists/demoDisasterList.dart';
 import 'package:fyp/screens/articles/articleDisplay.dart';
 
 class ArticleList extends StatelessWidget {
+  ArticleList({this.articleData, this.dataLength});
+  final articleData;
+  final int dataLength;
   static const String id = 'article';
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class ArticleList extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         child: Container(
           child: ListView.separated(
-            itemCount: demoArticles.length,
+            itemCount: dataLength,
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
                 thickness: 8,
@@ -39,14 +42,20 @@ class ArticleList extends StatelessWidget {
                         )),
                     child: ListTile(
                       onTap: () {
-                        Navigator.of(context).pushNamed(Display.id);
+                        print(articleData[index]);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => Display(
+                                      articles: articleData[index],
+                                    )));
                       },
                       title: Container(
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              '${demoArticles[index].title}',
+                              '${articleData[index]['title']}',
                               style: TextStyle(fontSize: 25),
                             ),
                           ),
@@ -55,7 +64,7 @@ class ArticleList extends StatelessWidget {
                       subtitle: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Text(
-                          '${demoArticles[index].description}',
+                          '${articleData[index]['description']}',
                           style: TextStyle(fontSize: 15),
                         ),
                       ),

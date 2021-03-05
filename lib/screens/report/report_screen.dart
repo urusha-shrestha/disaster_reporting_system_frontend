@@ -5,6 +5,8 @@ import 'package:fyp/screens/report/report_form.dart';
 BuildContext scaffoldContext;
 
 class ReportScreen extends StatefulWidget {
+  ReportScreen({this.userID});
+  final userID;
   static const String id = 'report_screen';
 
   @override
@@ -55,7 +57,9 @@ class _ReportScreenState extends State<ReportScreen> {
           title: Text('Report A Disaster'),
         ),
         body: SingleChildScrollView(
-          child: ReportForm(),
+          child: ReportForm(
+            userID: widget.userID,
+          ),
         ),
       ),
     );

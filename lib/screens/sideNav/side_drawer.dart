@@ -36,10 +36,7 @@ class DrawerScreen extends StatelessWidget {
                       style: TextStyle(fontSize: 20.0),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => Stack4()),
-                          (Route<dynamic> route) => false);
+                      getUsers(context);
                     },
                   ),
                 ],
@@ -71,10 +68,7 @@ class DrawerScreen extends StatelessWidget {
                 icon: Icons.report,
                 label: 'Report a Disaster',
                 onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => Stack2()),
-                      (Route<dynamic> route) => false);
+                  getUserID(context);
                 },
               ),
               SizedBox(

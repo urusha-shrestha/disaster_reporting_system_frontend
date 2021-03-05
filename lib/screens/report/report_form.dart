@@ -10,6 +10,8 @@ import 'location.dart';
 import 'time_picker.dart';
 
 class ReportForm extends StatefulWidget {
+  ReportForm({this.userID});
+  final userID;
   @override
   _ReportFormState createState() => _ReportFormState();
 }
@@ -65,8 +67,10 @@ class _ReportFormState extends State<ReportForm> {
                                         time: globalTimeValue,
                                         disasterType: dropDownValue,
                                         location: locationController.text,
-                                        contact: contactController.text,
+                                        contact:
+                                            contactController.text.toString(),
                                         description: descriptionController.text,
+                                        userID: widget.userID,
                                       );
                                     });
                               }

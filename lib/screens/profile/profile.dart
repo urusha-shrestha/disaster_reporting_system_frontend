@@ -2,6 +2,10 @@ import "package:flutter/material.dart";
 import 'package:fyp/screens/profile/profile_body.dart';
 
 class ProfileScreen extends StatefulWidget {
+  ProfileScreen({this.userDetails, this.userReports, this.dataLength});
+  final userDetails;
+  final userReports;
+  final int dataLength;
   static const String id = 'profile_screen';
 
   @override
@@ -58,7 +62,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         }),
               ),
             ),
-            ProfileBody(),
+            ProfileBody(
+              userDetails: widget.userDetails,
+              userReports: widget.userReports,
+              dataLength: widget.dataLength,
+            ),
           ],
         ),
       ),

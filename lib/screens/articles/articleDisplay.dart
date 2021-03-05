@@ -3,12 +3,14 @@ import 'package:fyp/constants.dart';
 import 'package:fyp/demo_lists/demoArticleList.dart';
 
 class Display extends StatelessWidget {
+  Display({this.articles});
+  final articles;
   static const String id = 'articleDisplay';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${demoArticles[0].title}'),
+        title: Text('${articles['title']}'),
         backgroundColor: kprimaryColour,
       ),
       body: SingleChildScrollView(
@@ -29,7 +31,7 @@ class Display extends StatelessWidget {
                   child: Center(
                     child: Container(
                       child: Text(
-                        '${demoArticles[0].title}',
+                        '${articles['title']}',
                         style: TextStyle(
                           fontSize: 30,
                         ),
@@ -42,7 +44,7 @@ class Display extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '${demoArticles[0].authorName}  ',
+                        '${articles['author']}  ',
                       ),
                       SizedBox(
                         width: 1,
@@ -51,7 +53,7 @@ class Display extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      Text('  ${demoArticles[0].articleDate}'),
+                      Text('  ${articles['date']}'),
                     ],
                   ),
                 ),
@@ -68,13 +70,13 @@ class Display extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          '    ${demoArticles[0].introduction}',
+                          '    ${articles['introduction']}',
                           style: TextStyle(fontSize: 18),
                         ),
                         SizedBox(
                           height: 8,
                         ),
-                        Text('    ${demoArticles[0].body}',
+                        Text('    ${articles['body']}',
                             style: TextStyle(fontSize: 18)),
                       ],
                     ),

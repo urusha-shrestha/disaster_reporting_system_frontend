@@ -26,13 +26,17 @@ class Stack1 extends StatelessWidget {
 }
 
 class Stack2 extends StatelessWidget {
+  Stack2({this.userID});
+  final userID;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           DrawerScreen(),
-          ReportScreen(),
+          ReportScreen(
+            userID: userID,
+          ),
         ],
       ),
     );
@@ -60,13 +64,21 @@ class Stack3 extends StatelessWidget {
 }
 
 class Stack4 extends StatelessWidget {
+  Stack4({this.userDetails, this.userReports, this.dataLength});
+  final userDetails;
+  final userReports;
+  final int dataLength;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           DrawerScreen(),
-          ProfileScreen(),
+          ProfileScreen(
+            userDetails: userDetails,
+            userReports: userReports,
+            dataLength: dataLength,
+          ),
         ],
       ),
     );
