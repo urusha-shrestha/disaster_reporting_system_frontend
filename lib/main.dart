@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'package:fyp/components/menu_bar.dart';
-import 'package:fyp/screens/logIn_screen.dart';
-import 'package:fyp/screens/register_screen.dart';
-import 'package:fyp/screens/report_screen.dart';
-import 'package:fyp/screens/reported_disaster_screen.dart';
-import 'package:fyp/screens/forgotpassword.dart';
+import 'package:fyp/screens/articles/articleDisplay.dart';
+import 'package:fyp/screens/articles/articleList.dart';
+import 'package:fyp/screens/articles/articles_screen.dart';
+import 'package:fyp/screens/forgotpassword/forgotpassword.dart';
+import 'package:fyp/screens/profile/profile.dart';
+import 'package:fyp/screens/report/report_screen.dart';
+import 'package:fyp/screens/reported_disasters/reported_disaster_screen.dart';
+import 'package:fyp/screens/sideNav/side_drawer.dart';
+import 'package:fyp/screens/logIn_and_signup/body.dart';
+import 'package:fyp/screens/splash/splash.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,15 +16,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ReportedDisasterScreen(),
-      initialRoute: ReportedDisasterScreen.id,
+      home: Body(),
+      initialRoute: Body.id,
       routes: {
-        LogInScreen.id: (context) => LogInScreen(),
-        RegisterScreen.id: (context) => RegisterScreen(),
+        Body.id: (context) => Body(),
+        /*RegisterScreen.id: (context) => RegisterScreen(),*/
         ForgotPassword.id: (context) => ForgotPassword(),
         ReportedDisasterScreen.id: (context) => ReportedDisasterScreen(),
-        CustomMenuBar.id: (context) => CustomMenuBar(),
+        DrawerScreen.id: (context) => DrawerScreen(),
         ReportScreen.id: (context) => ReportScreen(),
+        ArticlesScreen.id: (context) => ArticlesScreen(),
+        ArticleList.id: (context) => ArticleList(),
+        Display.id: (context) => Display(),
+        ProfileScreen.id: (context) => ProfileScreen(),
+        Splash.id: (context) => Splash(),
       },
     );
   }
