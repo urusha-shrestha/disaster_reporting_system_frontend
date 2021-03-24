@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
-import 'package:fyp/demo_lists/demoArticleList.dart';
 
 class Display extends StatelessWidget {
   Display({this.articles});
@@ -35,6 +34,7 @@ class Display extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 30,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -65,19 +65,23 @@ class Display extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Container(
                     child: Column(
                       children: [
                         Text(
                           '    ${articles['introduction']}',
                           style: TextStyle(fontSize: 18),
+                          textAlign: TextAlign.justify,
                         ),
                         SizedBox(
                           height: 8,
                         ),
-                        Text('    ${articles['body']}',
-                            style: TextStyle(fontSize: 18)),
+                        Text(
+                          '    ${articles['body']}',
+                          style: TextStyle(fontSize: 18),
+                          textAlign: TextAlign.justify,
+                        ),
                       ],
                     ),
                   ),

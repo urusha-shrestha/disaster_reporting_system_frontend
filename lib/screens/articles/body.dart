@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/controllers/methods.dart';
-import 'package:fyp/demo_lists/demoDisasterList.dart';
-import 'package:fyp/screens/articles/articleList.dart';
 import '../../constants.dart';
 
 class ArticlesBody extends StatelessWidget {

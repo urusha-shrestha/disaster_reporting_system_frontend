@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fyp/components/custom_button.dart';
+import 'package:fyp/components/loading.dart';
 import 'package:fyp/components/snackBar.dart';
 import 'package:fyp/controllers/methods.dart';
 import 'package:http/http.dart' as http;
@@ -11,13 +13,19 @@ class LogIn_Button extends StatefulWidget {
   final formKey;
   final String email;
   final String password;
-  bool isLoading;
+  bool isLoading = false;
 
   @override
   _LogIn_ButtonState createState() => _LogIn_ButtonState();
 }
 
 class _LogIn_ButtonState extends State<LogIn_Button> {
+  _buildBody(BuildContext context) {
+    if (widget.isLoading) {
+      return new CircularProgressIndicator();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -58,7 +66,7 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
     var jsonResponse = null;
 
     var response =
-        await http.post("http://192.168.0.110:8000/api/login", body: data);
+        await http.post("http://192.168.0.111:8000/api/login", body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');

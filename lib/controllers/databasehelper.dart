@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:fyp/controllers/networking.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseHelper {
-  String serverUrl = "http://192.168.0.110:8000/api";
+  String serverUrl = "http://192.168.0.111:8000/api";
   var status;
   var token;
 

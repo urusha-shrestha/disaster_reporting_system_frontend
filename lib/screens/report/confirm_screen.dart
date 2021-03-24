@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/components/snackBar.dart';
-import 'package:fyp/controllers/methods.dart';
-import 'package:fyp/controllers/networking.dart';
 import 'package:fyp/screens/report/report_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants.dart';
+import 'dart:io';
 
 class ConfirmDialog extends StatelessWidget {
   ConfirmDialog(
@@ -113,10 +112,10 @@ class ConfirmDialog extends StatelessWidget {
   void sendReport(_typeController, _locationController, _dateController,
       _timeController, _contactController, _descriptionController, id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString("token");
     final key = 'token';
-    final value = sharedPreferences.get(key) ?? 0;
     var status;
-    var token;
+
     var jsonResponse = null;
 
     Map data = {
@@ -129,9 +128,10 @@ class ConfirmDialog extends StatelessWidget {
       'user_id': id.toString()
     };
 
-    String myUrl = "http://192.168.0.110:8000/api/reports";
+    String myUrl = "http://192.168.0.111:8000/api/reports";
     final response = await http.post(myUrl,
-        headers: {'Accept': 'application/json'}, body: data);
+        headers: {HttpHeaders.authorizationHeader: "Bearer $token"},
+        body: data);
 
     status = response.body.contains('error');
     jsonResponse = json.decode(response.body);

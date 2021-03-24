@@ -42,7 +42,7 @@ class ArticleList extends StatelessWidget {
                         )),
                     child: ListTile(
                       onTap: () {
-                        print(articleData[index]);
+                        print(articleData[index]['image']);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
