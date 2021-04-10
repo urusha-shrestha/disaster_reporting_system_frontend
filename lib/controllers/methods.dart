@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fyp/controllers/databasehelper.dart';
 import 'package:fyp/screens/articles/articleList.dart';
 import 'package:fyp/stack.dart';

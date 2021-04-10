@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fyp/components/snackBar.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/controllers/methods.dart';
 import 'package:fyp/screens/logIn_and_signup/body.dart';
-import 'package:fyp/stack.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'menu_items.dart';
+import 'package:http/http.dart' as http;
 
 class DrawerScreen extends StatelessWidget {
   static const String id = 'side_drawer';
@@ -96,13 +99,32 @@ class DrawerScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20.0),
             ),
             onTap: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (BuildContext context) => Body()),
-                  (Route<dynamic> route) => false);
+              logout(context);
             },
           ),
         ],
       ),
     );
+  }
+}
+
+logout(BuildContext context) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.getString("token");
+  Map data = {'token': token};
+  var url = "http://192.168.0.111:8000/api/logout";
+  http.Response response = await http.post(url, body: data);
+  var jsonResponse = json.decode(response.body);
+  if (response.statusCode == 200) {
+    print('jsonResponse:${jsonResponse["token"]}');
+    /*_save(jsonResponse["token"]);*/
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => Body()),
+        (Route<dynamic> route) => false);
+    createSnackBar('Successfully logged out', Colors.green, context);
+    print('$context');
+  } else {
+    print('jsonResponse: ${jsonResponse["error"]}');
+    createSnackBar('Could not logout', Colors.red, context);
   }
 }
