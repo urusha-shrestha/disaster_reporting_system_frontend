@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_text_form_field.dart';
-import '../../constants.dart';
+import '../../../constants.dart';
 
-class location extends StatelessWidget {
-  location({@required this.locationController});
+class Location extends StatelessWidget {
+  Location({@required this.locationController});
   final TextEditingController locationController;
   @override
   Widget build(BuildContext context) {
@@ -11,12 +11,13 @@ class location extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: kprimaryColour,
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: CustomTextField(
               controller: locationController,
               label: 'Location',

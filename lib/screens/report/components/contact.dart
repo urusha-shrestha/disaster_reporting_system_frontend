@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_text_form_field.dart';
 import 'package:fyp/constants.dart';
 
-class contact extends StatelessWidget {
-  contact({@required this.contactController});
+class Contact extends StatelessWidget {
+  Contact({@required this.contactController});
   final TextEditingController contactController;
   @override
   Widget build(BuildContext context) {
@@ -11,12 +11,13 @@ class contact extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: kprimaryColour,
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: CustomTextField(
               controller: contactController,
               label: 'Contact Number',

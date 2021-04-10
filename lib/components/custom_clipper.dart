@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class loginClipper extends CustomClipper<Path> {
+class LoginClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path clip = new Path();
@@ -59,7 +59,7 @@ class SignUpClipper extends CustomClipper<Path> {
   }
 }
 
-class loginShadowPaint extends CustomPainter {
+class LoginShadowPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Path clip = new Path();
@@ -89,7 +89,7 @@ class loginShadowPaint extends CustomPainter {
   }
 }
 
-class signupShadowPaint extends CustomPainter {
+class SignupShadowPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Path clip = new Path();

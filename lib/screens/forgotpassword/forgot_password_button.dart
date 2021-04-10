@@ -27,9 +27,9 @@ class _ForgotPasswordButtonState extends State<ForgotPasswordButton> {
 
   sendEmail(String email) async {
     Map data = {'email': email};
-    var jsonResponse = null;
-    var response = await http
-        .post("http://192.168.1.185:8000/api/password/forgot", body: data);
+    var jsonResponse;
+    var response =
+        await http.post("http://10.0.2.2:8000/api/password/forgot", body: data);
 
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);

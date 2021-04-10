@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fyp/components/loading.dart';
 import 'package:fyp/components/snackBar.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/controllers/methods.dart';
@@ -16,43 +17,30 @@ class DrawerScreen extends StatelessWidget {
       padding: EdgeInsets.only(top: 20.0, left: 20.0, bottom: 30.0),
       decoration: kgradientBackground,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /*SizedBox(
-            height: MediaQuery.of(context).size.height * 0.01,
-          ),*/
-          Column(
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.person_rounded,
-                    size: 30.0,
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  GestureDetector(
-                    child: Text(
-                      'USERNAME',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    onTap: () {
-                      getUsers(context);
-                    },
-                  ),
-                ],
-              ),
-              Divider(
-                thickness: 2,
-                color: Colors.black26,
-                endIndent: 200.0,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.01,
+          Container(
+            /*color: Colors.red,*/
+            height: MediaQuery.of(context).size.height * 0.15,
+            width: MediaQuery.of(context).size.width * 0.45,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Loader(),
+                Text(
+                  'Emergencia',
+                  style: TextStyle(fontSize: 30.0),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 2,
+                  color: Colors.black26,
+                ),
+              ],
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -82,17 +70,23 @@ class DrawerScreen extends StatelessWidget {
                 label: 'Articles',
                 onTap: () {
                   getCategories(context);
-                  /*Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => Stack3()),
-                      (Route<dynamic> route) => false);*/
+                },
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              MenuItems(
+                icon: Icons.person_rounded,
+                label: 'Profile',
+                onTap: () {
+                  getUsers(context);
                 },
               ),
             ],
           ),
-          SizedBox(
+          /*SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
-          ),
+          ),*/
           GestureDetector(
             child: Text(
               'Log Out',
@@ -108,11 +102,32 @@ class DrawerScreen extends StatelessWidget {
   }
 }
 
+class Loader extends StatefulWidget {
+  const Loader({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _LoaderState createState() => _LoaderState();
+}
+
+class _LoaderState extends State<Loader> {
+  @override
+  Widget build(BuildContext context) {
+    return isLoading == false
+        ? Icon(
+            Icons.person_rounded,
+            size: 30.0,
+          )
+        : Loading();
+  }
+}
+
 logout(BuildContext context) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.getString("token");
   Map data = {'token': token};
-  var url = "http://192.168.0.111:8000/api/logout";
+  var url = "http://10.0.2.2:8000/api/logout";
   http.Response response = await http.post(url, body: data);
   var jsonResponse = json.decode(response.body);
   if (response.statusCode == 200) {

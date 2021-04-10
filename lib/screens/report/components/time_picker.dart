@@ -5,14 +5,14 @@ import 'package:fyp/constants.dart';
 bool timeVisible = false;
 String globalTimeValue;
 
-class time_picker extends StatefulWidget {
+class TimePicker extends StatefulWidget {
   TimeOfDay timeValue;
   String timeVal;
   @override
-  _time_pickerState createState() => _time_pickerState();
+  _TimePickerState createState() => _TimePickerState();
 }
 
-class _time_pickerState extends State<time_picker> {
+class _TimePickerState extends State<TimePicker> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,15 +26,16 @@ class _time_pickerState extends State<time_picker> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                    color: kprimaryColour,
-                  )),
+                        color: kprimaryColour,
+                      )),
                   child: Padding(
-                    padding: const EdgeInsets.all(6.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Text(
                       globalTimeValue == null
                           ? 'Time:'
-                          : ('Time: ${globalTimeValue} '),
+                          : ('Time: $globalTimeValue '),
                       style: TextStyle(fontSize: 20),
                     ),
                   ),

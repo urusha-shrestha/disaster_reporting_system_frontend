@@ -8,7 +8,14 @@ class Display extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
         title: Text('${articles['title']}'),
         backgroundColor: kprimaryColour,
       ),
@@ -18,7 +25,7 @@ class Display extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(5.0),
+                borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(
                   color: kprimaryColour,
                   width: 2,
@@ -60,8 +67,19 @@ class Display extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
-                    height: 300.0,
                     color: Colors.greenAccent,
+                    child:
+                        /*Image.network(
+                      */ /*
+                      'http://10.0.2.2:8000/storage/articles%5CMarch2021%5CRVsvzY0kkLsA0ZHBg32D.jpg',*/ /*
+                      */ /*'http://10.0.2.2:8000/storage/articles/March2021/RVsvzY0kkLsA0ZHBg32D.jpg'*/ /*
+                      'http://10.0.2.2:8000/storage/articles\March2021\RVsvzY0kkLsA0ZHBg32D.jpg',
+                      height: 300.0,
+                    ),*/
+                        Image.network(
+                      'http://10.0.2.2:8000/storage/${articles['image']}',
+                      height: 300.0,
+                    ),
                   ),
                 ),
                 Padding(

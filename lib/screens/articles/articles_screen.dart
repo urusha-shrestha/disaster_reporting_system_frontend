@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:fyp/constants.dart';
+import 'package:fyp/components/loading.dart';
+import 'package:fyp/screens/app_bar.dart';
 import 'package:fyp/screens/articles/body.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class ArticlesScreen extends StatefulWidget {
   ArticlesScreen({this.categories, this.dataLength});
@@ -30,30 +32,26 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
         borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0),
       ),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kprimaryColour,
-          leading: isDrawerOpen
-              ? IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    setState(() {
-                      xOffset = 0;
-                      yOffset = 0;
-                      scaleFactor = 1;
-                      isDrawerOpen = false;
-                    });
-                  })
-              : IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {
-                    setState(() {
-                      xOffset = 230;
-                      yOffset = 100;
-                      scaleFactor = 0.8;
-                      isDrawerOpen = true;
-                    });
-                  }),
-          title: Text('Articles'),
+        backgroundColor: Colors.grey.shade300,
+        appBar: buildAppBar(
+          isDrawerOpen: isDrawerOpen,
+          onPressedOpen: () {
+            setState(() {
+              xOffset = 0;
+              yOffset = 0;
+              scaleFactor = 1;
+              isDrawerOpen = false;
+            });
+          },
+          onPressedClosed: () {
+            setState(() {
+              xOffset = 230;
+              yOffset = 100;
+              scaleFactor = 0.8;
+              isDrawerOpen = true;
+            });
+          },
+          title: 'Articles',
         ),
         body: ArticlesBody(
           categories: widget.categories,

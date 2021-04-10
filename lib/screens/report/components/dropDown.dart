@@ -6,16 +6,15 @@ import 'package:fyp/demo_lists/demoDisasterList.dart';
 bool typeVisible = false;
 String dropDownValue;
 
-class dropDown extends StatefulWidget {
-  const dropDown({
-    Key key,
-  }) : super(key: key);
+class DropDown extends StatefulWidget {
+  DropDown({this.categories});
+  final categories;
 
   @override
-  _dropDownState createState() => _dropDownState();
+  _DropDownState createState() => _DropDownState();
 }
 
-class _dropDownState extends State<dropDown> {
+class _DropDownState extends State<DropDown> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,16 +25,17 @@ class _dropDownState extends State<dropDown> {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-              color: kprimaryColour,
-            )),
+                  color: kprimaryColour,
+                )),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: DropdownButton(
                   isExpanded: true,
                   hint: Text('Select disaster'),
                   value: dropDownValue,
-                  items: disasters.map((disaster) {
+                  items: disaster.map((disaster) {
                     return DropdownMenuItem(
                       child: new Text(disaster),
                       value: disaster,

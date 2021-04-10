@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp/components/loading.dart';
 import 'package:fyp/screens/logIn_and_signup/log_In.dart';
 import 'package:fyp/screens/logIn_and_signup/sign_up.dart';
 import '../../constants.dart';
@@ -13,10 +14,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final _LogInformKey = GlobalKey<FormState>();
-  final _RegisterformKey = GlobalKey<FormState>();
+  final _logInFormKey = GlobalKey<FormState>();
+  final _registerFormKey = GlobalKey<FormState>();
   bool islogin = true;
-  bool _isLoading = false;
   bool loginfail = false;
   bool _isHidden = true;
 
@@ -57,24 +57,23 @@ class _BodyState extends State<Body> {
                     SizedBox(
                       height: mheight * 0.01,
                     ),
-                    topText(),
+                    TopText(),
                     Container(
                       height: mheight * 0.8,
                       width: mwidth * 0.95,
                       child: Stack(
                         children: [
-                          Log_In(
-                            formKey: _LogInformKey,
+                          LogIn(
+                            formKey: _logInFormKey,
                             isLogin: islogin,
                             email: emailController,
                             password: passwordController,
                             isHidden: _isHidden,
                             passwordVisibility: _togglePasswordVisibility,
-                            isLoading: _isLoading,
                           ),
                           islogin == false
-                              ? Sign_Up(
-                                  formKey: _RegisterformKey,
+                              ? SignUp(
+                                  formKey: _registerFormKey,
                                   isLogin: islogin,
                                   name: nameController,
                                   email: registeremailController,
@@ -82,7 +81,7 @@ class _BodyState extends State<Body> {
                                   confirmPassword: confirmPasswordController,
                                   isHidden: _isHidden,
                                   passwordVisibility: _togglePasswordVisibility,
-                                  isLoading: _isLoading,
+                                  isLoading: isLoading,
                                 )
                               : Container(),
                         ],

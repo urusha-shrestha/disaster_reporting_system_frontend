@@ -2,34 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fyp/components/custom_clipper.dart';
 import 'package:fyp/components/custom_text_form_field.dart';
+import 'package:fyp/components/loading.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../../constants.dart';
 import '../forgotpassword/forgotpassword.dart';
 import 'customtext.dart';
 import 'logIn_button.dart';
 
-class Log_In extends StatelessWidget {
-  Log_In(
-      {this.formKey,
-      this.isLogin,
-      this.email,
-      this.password,
-      this.isHidden,
-      this.passwordVisibility,
-      this.isLoading});
+class LogIn extends StatefulWidget {
+  LogIn({
+    this.formKey,
+    this.isLogin,
+    this.email,
+    this.password,
+    this.isHidden,
+    this.passwordVisibility,
+  });
   final formKey;
-  bool isLogin;
+  final bool isLogin;
   final email;
   final password;
-  bool isHidden;
+  final bool isHidden;
   final passwordVisibility;
-  bool isLoading;
 
+  @override
+  _LogInState createState() => _LogInState();
+}
+
+class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
-      child: isLogin
+      key: widget.formKey,
+      child: widget.isLogin
           ? Positioned(
               left: 20,
               right: 20,
@@ -39,7 +45,7 @@ class Log_In extends StatelessWidget {
                 child: Stack(
                   children: [
                     CustomPaint(
-                      painter: loginShadowPaint(),
+                      painter: LoginShadowPaint(),
                       child: Stack(
                         children: [
                           Container(
@@ -49,7 +55,7 @@ class Log_In extends StatelessWidget {
                             ),
                           ),
                           ClipPath(
-                            clipper: loginClipper(),
+                            clipper: LoginClipper(),
                             child: Container(
                               height: MediaQuery.of(context).size.height * 0.7,
                               width: MediaQuery.of(context).size.width * 0.92,
@@ -95,7 +101,7 @@ class Log_In extends StatelessWidget {
                                     margin: EdgeInsets.only(left: 30),
                                     height: 40,
                                     child: CustomTextField(
-                                      controller: email,
+                                      controller: widget.email,
                                       keyboardType: TextInputType.emailAddress,
                                       validator: (value) {
                                         if (value.isEmpty) {
@@ -122,7 +128,7 @@ class Log_In extends StatelessWidget {
                                     margin: EdgeInsets.only(left: 30),
                                     height: 40,
                                     child: CustomTextField(
-                                      controller: password,
+                                      controller: widget.password,
                                       validator: (value) {
                                         if (value.isEmpty) {
                                           return 'This field cannot be empty';
@@ -135,13 +141,13 @@ class Log_In extends StatelessWidget {
                                         color: kprimaryColour,
                                       ),
                                       suffixIcon: IconButton(
-                                        icon: isHidden
+                                        icon: widget.isHidden
                                             ? Icon(Icons.visibility_off)
                                             : Icon(Icons.visibility),
-                                        onPressed: passwordVisibility,
+                                        onPressed: widget.passwordVisibility,
                                       ),
                                       label: 'Password',
-                                      hideText: isHidden,
+                                      hideText: widget.isHidden,
                                     ),
                                   ),
                                   SizedBox(height: 30),
@@ -175,11 +181,10 @@ class Log_In extends StatelessWidget {
                         ],
                       ),
                     ),
-                    LogIn_Button(
-                      formKey: formKey,
-                      email: email.text,
-                      password: password.text,
-                      isLoading: isLoading,
+                    LogInButton(
+                      formKey: widget.formKey,
+                      email: widget.email.text,
+                      password: widget.password.text,
                     ),
                   ],
                 ),

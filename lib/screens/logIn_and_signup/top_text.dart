@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class topText extends StatelessWidget {
-  const topText({
+class TopText extends StatelessWidget {
+  const TopText({
     Key key,
   }) : super(key: key);
 

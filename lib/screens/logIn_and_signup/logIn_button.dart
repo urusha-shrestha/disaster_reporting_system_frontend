@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/components/loading.dart';
 import 'package:fyp/components/snackBar.dart';
 import 'package:fyp/controllers/methods.dart';
 import 'package:http/http.dart' as http;
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class LogIn_Button extends StatefulWidget {
-  LogIn_Button({this.formKey, this.email, this.password, this.isLoading});
+class LogInButton extends StatefulWidget {
+  LogInButton({this.formKey, this.email, this.password});
   final formKey;
   final String email;
   final String password;
-  bool isLoading = false;
 
   @override
-  _LogIn_ButtonState createState() => _LogIn_ButtonState();
+  _LogInButtonState createState() => _LogInButtonState();
 }
 
-class _LogIn_ButtonState extends State<LogIn_Button> {
-  _buildBody(BuildContext context) {
-    if (widget.isLoading) {
-      return new CircularProgressIndicator();
-    }
-  }
+class _LogInButtonState extends State<LogInButton> {
+  _buildBody(BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +32,27 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomButton(
-              onPressed: () {
-                if (widget.formKey.currentState.validate()) {
-                  try {
-                    logIn(widget.email, widget.password);
-                  } on Exception catch (e) {
-                    createSnackBar('Could not log in', Colors.red, context);
-                  } catch (error) {
-                    createSnackBar('Could not log in', Colors.red, context);
-                  }
-                }
-              },
-              buttonText: 'Login',
-            ),
+            isLoading == false
+                ? CustomButton(
+                    onPressed: () {
+                      setState(() {
+                        isLoading = !isLoading;
+                      });
+                      if (widget.formKey.currentState.validate()) {
+                        try {
+                          logIn(widget.email, widget.password);
+                        } on Exception {
+                          createSnackBar(
+                              'Could not log in', Colors.red, context);
+                        } catch (error) {
+                          createSnackBar(
+                              'Could not log in', Colors.red, context);
+                        }
+                      }
+                    },
+                    buttonText: 'Login',
+                  )
+                : Center(child: Loading()),
           ],
         ),
       ),
@@ -63,25 +65,23 @@ class _LogIn_ButtonState extends State<LogIn_Button> {
       'email': email,
       'password': password,
     };
-    var jsonResponse = null;
+
+    var jsonResponse;
 
     var response =
-        await http.post("http://192.168.0.111:8000/api/login", body: data);
+        await http.post("http://10.0.2.2:8000/api/login", body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
       if (jsonResponse != null) {
-        setState(() {
-          widget.isLoading = false;
-        });
         sharedPreferences.setString("token", jsonResponse['token']);
         getReport(context);
         createSnackBar('Successfully logged in', Colors.green, context);
       }
     } else {
       setState(() {
-        widget.isLoading = false;
+        isLoading = false;
         createSnackBar(
             'The email or password is incorrect', Colors.red, context);
       });
