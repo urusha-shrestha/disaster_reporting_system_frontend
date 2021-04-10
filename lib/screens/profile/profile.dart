@@ -1,11 +1,18 @@
 import "package:flutter/material.dart";
 import 'package:fyp/screens/profile/profile_body.dart';
 
+BuildContext profileContext;
+
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({this.userDetails, this.userReports, this.dataLength});
+  ProfileScreen(
+      {this.userDetails,
+      this.userReports,
+      this.dataLength,
+      this.categoryImages});
   final userDetails;
   final userReports;
   final int dataLength;
+  final categoryImages;
   static const String id = 'profile_screen';
 
   @override
@@ -20,6 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    profileContext = context;
     return AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)
         ..scale(scaleFactor)
@@ -29,45 +37,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
         borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0),
       ),
       child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 8.0, top: 25.0, right: 8.0, bottom: 5.0),
-              child: Container(
-                child: isDrawerOpen
-                    ? IconButton(
-                        icon: Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          setState(() {
-                            xOffset = 0;
-                            yOffset = 0;
-                            scaleFactor = 1;
-                            isDrawerOpen = false;
-                          });
-                        })
-                    : IconButton(
-                        icon: Icon(Icons.menu),
-                        onPressed: () {
-                          setState(() {
-                            xOffset = 230;
-                            yOffset = 100;
-                            scaleFactor = 0.8;
-                            isDrawerOpen = true;
-                          });
-                        }),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 5,
               ),
-            ),
-            ProfileBody(
-              userDetails: widget.userDetails,
-              userReports: widget.userReports,
-              dataLength: widget.dataLength,
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 8.0, top: 25.0, right: 8.0, bottom: 5.0),
+                child: Container(
+                  child: isDrawerOpen
+                      ? IconButton(
+                          icon: Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            setState(() {
+                              xOffset = 0;
+                              yOffset = 0;
+                              scaleFactor = 1;
+                              isDrawerOpen = false;
+                            });
+                          })
+                      : IconButton(
+                          icon: Icon(Icons.menu),
+                          onPressed: () {
+                            setState(() {
+                              xOffset = 230;
+                              yOffset = 100;
+                              scaleFactor = 0.8;
+                              isDrawerOpen = true;
+                            });
+                          }),
+                ),
+              ),
+              ProfileBody(
+                userDetails: widget.userDetails,
+                userReports: widget.userReports,
+                dataLength: widget.dataLength,
+                categoryImages: widget.categoryImages,
+              ),
+            ],
+          ),
         ),
       ),
     );

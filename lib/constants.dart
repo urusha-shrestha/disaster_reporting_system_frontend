@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const kprimaryColour1 = Color(0xFFffcc93);
+const kprimaryColour2 = Color(0xFFF5751D);
 const kprimaryColour = Color(0xFFFEBF78);
 const kbackgroundColour = Color(0xFFd0f5eb);
 const kforegroundColour = Color(0xFFa5ecd7);
@@ -27,6 +29,24 @@ const kgradientBackground = BoxDecoration(
   gradient: LinearGradient(
     begin: Alignment.bottomCenter,
     end: Alignment.topCenter,
-    colors: [kprimaryColour, Colors.white],
+    colors: [kprimaryColour, kprimaryColour1, Colors.white],
   ),
 );
+
+const kgradient = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.bottomRight,
+  colors: [Color(0xFF78B7FE), Colors.white],
+);
+
+const klabelTextStyle = TextStyle(
+  fontSize: 19.0,
+  color: Colors.grey,
+  letterSpacing: 1,
+);
+
+const kTextStyle = TextStyle(
+    fontSize: 20.0,
+    color: Colors.black,
+    letterSpacing: 1,
+    fontWeight: FontWeight.w500);

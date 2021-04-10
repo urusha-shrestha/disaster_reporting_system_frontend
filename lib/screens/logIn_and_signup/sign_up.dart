@@ -7,10 +7,10 @@ import '../../constants.dart';
 import 'customtext.dart';
 import 'register_button.dart';
 
-class Sign_Up extends StatelessWidget {
-  Sign_Up(
+class SignUp extends StatelessWidget {
+  SignUp(
       {this.formKey,
-      bool isLogin,
+      this.isLogin,
       this.name,
       this.email,
       this.password,
@@ -19,14 +19,14 @@ class Sign_Up extends StatelessWidget {
       this.passwordVisibility,
       this.isLoading});
   final formKey;
-  bool isLogin;
+  final bool isLogin;
   final name;
   final email;
   final password;
   final confirmPassword;
-  bool isHidden;
+  final bool isHidden;
   final passwordVisibility;
-  bool isLoading;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +42,12 @@ class Sign_Up extends StatelessWidget {
             child: Stack(
               children: [
                 CustomPaint(
-                  painter: signupShadowPaint(),
+                  painter: SignupShadowPaint(),
                   child: Stack(
                     children: [
                       Container(
                         child: ClipPath(
-                          clipper: loginClipper(),
+                          clipper: LoginClipper(),
                           child: HeadingText(label: 'Log In'),
                         ),
                       ),
@@ -210,7 +210,7 @@ class Sign_Up extends StatelessWidget {
                     ],
                   ),
                 ),
-                Register_Button(
+                RegisterButton(
                   formKey: formKey,
                   name: name.text,
                   email: email.text,

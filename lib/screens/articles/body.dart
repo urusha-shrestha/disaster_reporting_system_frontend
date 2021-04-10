@@ -10,58 +10,68 @@ class ArticlesBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(1.0),
         child: Container(
           child: ListView.separated(
             itemCount: dataLength,
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
-                thickness: 2,
-                color: Colors.white,
+                thickness: 1,
+                color: Colors.grey.shade300,
               );
             },
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                hoverColor: kprimaryColour,
                 onTap: () {
                   getArticles(context, categories[index]['id']);
                 },
-                title: Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            border:
-                                Border.all(color: kprimaryColour, width: 2.5),
+                title: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
+                  elevation: 8,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        border: Border.all(color: kprimaryColour, width: 2.5),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Container(
+                              height: 90,
+                              child: Image.network(
+                                  'http://10.0.2.2:8000/storage/${categories[index]['image']}'),
+                            ),
                           ),
-                          child: Center(
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Center(
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
                                 '${categories[index]['category']}'
                                 /*'${disasters[index]}'*/,
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 25),
                               ),
                             ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: Icon(
+                              Icons.double_arrow_rounded,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    /*Container(
-                      child: Icon(
-                        Icons.picture_in_picture_alt_outlined,
-                        size: 50.0,
-                      ),
-                    ),*/
-                  ],
+                  ),
                 ),
               );
             },

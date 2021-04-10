@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class Register_Button extends StatefulWidget {
-  Register_Button(
+class RegisterButton extends StatefulWidget {
+  RegisterButton(
       {this.formKey, this.name, this.email, this.password, this.isLoading});
   final formKey;
   final String name;
@@ -16,10 +16,10 @@ class Register_Button extends StatefulWidget {
   bool isLoading;
 
   @override
-  _Register_ButtonState createState() => _Register_ButtonState();
+  _RegisterButtonState createState() => _RegisterButtonState();
 }
 
-class _Register_ButtonState extends State<Register_Button> {
+class _RegisterButtonState extends State<RegisterButton> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -51,10 +51,10 @@ class _Register_ButtonState extends State<Register_Button> {
       'email': email,
       'password': password,
     };
-    var jsonResponse = null;
+    var jsonResponse;
 
     var response =
-        await http.post("http://192.168.0.111:8000/api/register", body: data);
+        await http.post("http://10.0.2.2:8000/api/register", body: data);
 
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);

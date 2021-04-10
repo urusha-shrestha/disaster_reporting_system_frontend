@@ -1,31 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:fyp/controllers/databasehelper.dart';
-import 'package:fyp/demo_lists/demoReportList.dart';
-import 'package:fyp/screens/reported_disasters/text_row.dart';
-import '../../constants.dart';
+import 'package:fyp/screens/reported_disasters/card_view.dart';
 
 class ReportedBody extends StatelessWidget {
-  ReportedBody({this.reportData, this.dataLength});
+  ReportedBody({this.reportData, this.dataLength, this.categoryImage});
   final reportData;
   final int dataLength;
+  final categoryImage;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(10.0),
         child: Container(
           child: ListView.separated(
+            reverse: true,
+            shrinkWrap: true,
             itemCount: dataLength,
             separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                thickness: 8,
-                color: Colors.white,
+              return SizedBox(
+                height: 10,
               );
             },
             itemBuilder: (BuildContext context, int index) {
-              return Padding(
+              print(index);
+              return CardView(
+                reportData: reportData,
+                index: index,
+                categoryImage: categoryImage,
+              );
+              /*Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   decoration: BoxDecoration(
@@ -81,7 +85,7 @@ class ReportedBody extends StatelessWidget {
                     ),
                   ),
                 ),
-              );
+              );*/
             },
           ),
         ),
