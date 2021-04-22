@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/components/loading.dart';
 import 'package:fyp/components/snackBar.dart';
+import 'package:fyp/controllers/databasehelper.dart';
 import 'package:fyp/controllers/methods.dart';
 import 'package:http/http.dart' as http;
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -23,40 +23,35 @@ class _LogInButtonState extends State<LogInButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: MediaQuery.of(context).size.width * 0.31,
-      bottom: MediaQuery.of(context).size.height * 0.02,
-      child: Align(
-        alignment: Alignment(0, 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            isLoading == false
-                ? CustomButton(
-                    onPressed: () {
+    return isLoading == false
+        ? Positioned(
+            left: MediaQuery.of(context).size.width * 0.30,
+            bottom: MediaQuery.of(context).size.height * 0.02,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomButton(
+                  onPressed: () {
+                    if (widget.formKey.currentState.validate()) {
                       setState(() {
                         isLoading = !isLoading;
                       });
-                      if (widget.formKey.currentState.validate()) {
-                        try {
-                          logIn(widget.email, widget.password);
-                        } on Exception {
-                          createSnackBar(
-                              'Could not log in', Colors.red, context);
-                        } catch (error) {
-                          createSnackBar(
-                              'Could not log in', Colors.red, context);
-                        }
+                      try {
+                        logIn(widget.email, widget.password);
+                      } on Exception {
+                        createSnackBar('Could not log in', Colors.red, context);
+                      } catch (error) {
+                        createSnackBar('Could not log in', Colors.red, context);
                       }
-                    },
-                    buttonText: 'Login',
-                  )
-                : Center(child: Loading()),
-          ],
-        ),
-      ),
-    );
+                    }
+                  },
+                  buttonText: 'Login',
+                )
+              ],
+            ),
+          )
+        : Loading();
   }
 
   logIn(String email, password) async {
@@ -68,8 +63,7 @@ class _LogInButtonState extends State<LogInButton> {
 
     var jsonResponse;
 
-    var response =
-        await http.post("http://10.0.2.2:8000/api/login", body: data);
+    var response = await http.post('$serverUrl/login', body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       print('Response status: ${response.statusCode}');
@@ -81,6 +75,7 @@ class _LogInButtonState extends State<LogInButton> {
       }
     } else {
       setState(() {
+        print(response.statusCode);
         isLoading = false;
         createSnackBar(
             'The email or password is incorrect', Colors.red, context);

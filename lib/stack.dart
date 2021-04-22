@@ -6,11 +6,17 @@ import 'package:fyp/screens/report/report_screen.dart';
 import 'package:fyp/screens/reported_disasters/reported_disaster_screen.dart';
 import 'package:fyp/screens/sideNav/side_drawer.dart';
 
-class Stack1 extends StatelessWidget {
+class Stack1 extends StatefulWidget {
   Stack1({this.reportsData, this.dataLength, this.categoryImage});
   final reportsData;
   final int dataLength;
   final categoryImage;
+
+  @override
+  _Stack1State createState() => _Stack1State();
+}
+
+class _Stack1State extends State<Stack1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +24,9 @@ class Stack1 extends StatelessWidget {
         children: [
           DrawerScreen(),
           ReportedDisasterScreen(
-            reportData: reportsData,
-            dataLength: dataLength,
-            categoryImage: categoryImage,
+            reportData: widget.reportsData,
+            dataLength: widget.dataLength,
+            categoryImage: widget.categoryImage,
           ),
         ],
       ),
@@ -28,10 +34,16 @@ class Stack1 extends StatelessWidget {
   }
 }
 
-class Stack2 extends StatelessWidget {
+class Stack2 extends StatefulWidget {
   Stack2({this.userID, this.categories});
   final userID;
   final categories;
+
+  @override
+  _Stack2State createState() => _Stack2State();
+}
+
+class _Stack2State extends State<Stack2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +51,8 @@ class Stack2 extends StatelessWidget {
         children: [
           DrawerScreen(),
           ReportScreen(
-            userID: userID,
-            categories: categories,
+            userID: widget.userID,
+            categories: widget.categories,
           ),
         ],
       ),
@@ -82,7 +94,7 @@ class _Stack3State extends State<Stack3> {
   }
 }
 
-class Stack4 extends StatelessWidget {
+class Stack4 extends StatefulWidget {
   Stack4(
       {this.userDetails,
       this.userReports,
@@ -92,6 +104,12 @@ class Stack4 extends StatelessWidget {
   final userReports;
   final int dataLength;
   final categoryImages;
+
+  @override
+  _Stack4State createState() => _Stack4State();
+}
+
+class _Stack4State extends State<Stack4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,10 +117,10 @@ class Stack4 extends StatelessWidget {
         children: [
           DrawerScreen(),
           ProfileScreen(
-            userDetails: userDetails,
-            userReports: userReports,
-            dataLength: dataLength,
-            categoryImages: categoryImages,
+            userDetails: widget.userDetails,
+            userReports: widget.userReports,
+            dataLength: widget.dataLength,
+            categoryImages: widget.categoryImages,
           ),
         ],
       ),

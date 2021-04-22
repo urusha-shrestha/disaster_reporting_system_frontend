@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/controllers/methods.dart';
-import 'package:fyp/demo_lists/demoDisasterList.dart';
 
 bool typeVisible = false;
 String dropDownValue;

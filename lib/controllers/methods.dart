@@ -50,18 +50,23 @@ getCategories(context) async {
   isLoading = true;
   DatabaseHelper databaseHelper = DatabaseHelper();
   var categories = await databaseHelper.getCategoriesData();
-  Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-          builder: (BuildContext context) => Stack3(
-                categories: categories,
-                dataLength: categories.length,
-              )),
-      (Route<dynamic> route) => false);
+  Future.delayed(Duration(seconds: 3), () {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => Stack3(
+                  categories: categories,
+                  dataLength: categories.length,
+                )),
+        (Route<dynamic> route) => false);
+  });
+
+  isLoading = false;
 }
 
 List<String> disaster = [];
 getUserID(context) async {
+  isLoading = true;
   DatabaseHelper databaseHelper = DatabaseHelper();
   var data = await databaseHelper.getUserData();
   List categories = await databaseHelper.getCategoriesData();
@@ -81,9 +86,11 @@ getUserID(context) async {
                 categories: disaster,
               )),
       (Route<dynamic> route) => false);
+  isLoading = false;
 }
 
 getUsers(context) async {
+  isLoading = true;
   DatabaseHelper databaseHelper = DatabaseHelper();
   var profile = await databaseHelper.getUserData();
   var userReports =
@@ -102,9 +109,11 @@ getUsers(context) async {
                 )),
         (Route<dynamic> route) => false);
   });
+  isLoading = false;
 }
 
 getArticles(context, categoryID) async {
+  isLoading = true;
   DatabaseHelper databaseHelper = DatabaseHelper();
   var articles = await databaseHelper.getArticlesData(categoryID);
   Navigator.push(
@@ -113,4 +122,5 @@ getArticles(context, categoryID) async {
         builder: (BuildContext context) =>
             ArticleList(articleData: articles, dataLength: articles.length)),
   );
+  isLoading = false;
 }

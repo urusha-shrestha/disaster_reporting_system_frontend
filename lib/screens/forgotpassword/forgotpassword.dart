@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/components/custom_text_form_field.dart';
+import 'package:fyp/components/loading.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/screens/forgotpassword/forgot_password_button.dart';
 
@@ -13,6 +14,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  //final TextEditingController emailController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -42,7 +44,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Please enter your email to receive a password reset link',
+                              'Please enter your email to receive an email with token',
                               style: TextStyle(fontSize: 20.0),
                             ),
                             SizedBox(
@@ -51,7 +53,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: CustomTextField(
+                                border: false,
                                 label: 'Email',
+                                controller: widget.emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) {
                                   if (value.isEmpty) {
@@ -80,7 +84,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               children: [
                                 ForgotPasswordButton(
                                   formKey: _formKey,
-                                  email: widget.emailController.text,
+                                  email: widget.emailController,
                                 ),
                                 SizedBox(
                                   width: 20.0,
@@ -88,6 +92,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 CustomButton(
                                     onPressed: () {
                                       Navigator.pop(context);
+                                      print(widget.emailController.text);
                                     },
                                     buttonText: 'Back'),
                               ],

@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Body(),
-      initialRoute: Body.id,
+      home: Splash(),
+      initialRoute: Splash.id,
       routes: {
         Body.id: (context) => Body(),
         /*RegisterScreen.id: (context) => RegisterScreen(),*/
