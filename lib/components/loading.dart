@@ -8,9 +8,18 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        child: SpinKitFadingCircle(
-          duration: Duration(seconds: 2),
-          color: Colors.red,
+        height: 100,
+        width: 100,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              child: SpinKitFadingCircle(
+                duration: Duration(seconds: 2),
+                color: Colors.red,
+              ),
+            ),
+          ],
         ),
       ),
     );

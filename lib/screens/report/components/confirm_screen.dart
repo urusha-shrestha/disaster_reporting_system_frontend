@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fyp/components/confirm_text.dart';
 import 'package:fyp/components/custom_button.dart';
 import 'package:fyp/components/loading.dart';
 import 'package:fyp/components/snackBar.dart';
+import 'package:fyp/controllers/databasehelper.dart';
 import 'package:fyp/screens/report/report_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -94,6 +96,7 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
                         ConfirmText(textValue: 'Location: ${widget.location}'),
                         ConfirmText(
                             textValue: 'Disaster: ${widget.disasterType}'),
+                        ConfirmText(textValue: 'Contact: ${widget.contact}'),
                         ConfirmText(
                             textValue: widget.description.isEmpty
                                 ? 'No description'
@@ -151,7 +154,7 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
       'user_id': id.toString()
     };
 
-    String myUrl = "http://10.0.2.2:8000/api/reports";
+    String myUrl = "$serverUrl/reports";
     final response = await http.post(myUrl,
         headers: {HttpHeaders.authorizationHeader: "Bearer $token"},
         body: data);
@@ -174,22 +177,5 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
       print('$scaffoldContext');
       print('Report has been sent');
     }
-  }
-}
-
-class ConfirmText extends StatelessWidget {
-  const ConfirmText({
-    @required this.textValue,
-  });
-
-  final String textValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      textValue,
-      style: TextStyle(
-          decoration: TextDecoration.none, color: Colors.black, fontSize: 20),
-    );
   }
 }

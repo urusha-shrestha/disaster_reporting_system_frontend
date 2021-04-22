@@ -29,7 +29,7 @@ class _ReportedDisasterScreenState extends State<ReportedDisasterScreen> {
   @override
   void initState() {
     super.initState();
-    checkLoginStatus();
+    //checkLoginStatus();
   }
 
   checkLoginStatus() async {

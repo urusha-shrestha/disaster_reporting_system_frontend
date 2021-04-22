@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/screens/profile/edit.dart';
-import 'package:fyp/screens/reported_disasters/card_view.dart';
+import 'package:fyp/screens/profile/profile_card_view.dart';
 import 'user_details_text.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -101,7 +101,7 @@ class ProfileBody extends StatelessWidget {
                                   itemCount: dataLength,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return CardView(
+                                    return ProfileCardView(
                                       reportData: userReports,
                                       index: index,
                                       categoryImage: categoryImages,

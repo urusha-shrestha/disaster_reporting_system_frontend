@@ -46,28 +46,41 @@ class CardView extends StatelessWidget {
                               child: Text(
                                 '${reportData[index]['disaster_type']}',
                                 style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
+                                    fontSize: 25, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],
                         ),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            IconRow(
-                              icon: Icons.date_range_rounded,
-                              dataText: '${reportData[index]['date']}',
-                              dataTextStyle: TextStyle(fontSize: 18),
-                            ),
-                            IconRow(
-                              icon: Icons.access_time_outlined,
-                              dataText: '${reportData[index]['time']}',
-                              dataTextStyle: TextStyle(fontSize: 18),
-                            ),
-                            IconRow(
-                              icon: Icons.location_on_outlined,
-                              dataText: '${reportData[index]['location']}',
-                              dataTextStyle: TextStyle(fontSize: 18),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                IconRow(
+                                  width: true,
+                                  icon: Icons.date_range_rounded,
+                                  dataText: '${reportData[index]['date']}',
+                                  dataTextStyle: TextStyle(fontSize: 18),
+                                ),
+                                IconRow(
+                                  width: true,
+                                  icon: Icons.access_time_outlined,
+                                  dataText: '${reportData[index]['time']}',
+                                  dataTextStyle: TextStyle(fontSize: 18),
+                                ),
+                                IconRow(
+                                  width: true,
+                                  icon: Icons.location_on_outlined,
+                                  dataText: '${reportData[index]['location']}',
+                                  dataTextStyle: TextStyle(fontSize: 18),
+                                ),
+                                IconRow(
+                                  width: true,
+                                  icon: Icons.phone,
+                                  dataText: '${reportData[index]['contact']}',
+                                  dataTextStyle: TextStyle(fontSize: 18),
+                                ),
+                              ],
                             ),
                           ],
                         ),

@@ -67,7 +67,6 @@ class Display extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
-                    color: Colors.greenAccent,
                     child:
                         /*Image.network(
                       */ /*

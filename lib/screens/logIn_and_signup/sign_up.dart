@@ -106,6 +106,7 @@ class SignUp extends StatelessWidget {
                                 margin: EdgeInsets.only(left: 30),
                                 height: 60,
                                 child: CustomTextField(
+                                  border: false,
                                   controller: name,
                                   validator: (value) {
                                     if (value.isEmpty) {
@@ -127,6 +128,7 @@ class SignUp extends StatelessWidget {
                                 margin: EdgeInsets.only(left: 30),
                                 height: 60,
                                 child: CustomTextField(
+                                  border: false,
                                   keyboardType: TextInputType.emailAddress,
                                   controller: email,
                                   validator: (value) {
@@ -153,6 +155,7 @@ class SignUp extends StatelessWidget {
                                 margin: EdgeInsets.only(left: 30),
                                 height: 60,
                                 child: CustomTextField(
+                                  border: false,
                                   controller: password,
                                   validator: (value) {
                                     if (value.isEmpty) {
@@ -181,10 +184,13 @@ class SignUp extends StatelessWidget {
                                 margin: EdgeInsets.only(left: 30),
                                 height: 60,
                                 child: CustomTextField(
+                                  border: false,
                                   controller: confirmPassword,
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return "This field cannot be empty";
+                                    } else if (value != password.text) {
+                                      return "The password does not match";
                                     }
                                     return null;
                                   },

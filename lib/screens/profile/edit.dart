@@ -51,6 +51,7 @@ class _EditState extends State<Edit> {
           child: Column(
             children: [
               CustomTextField(
+                border: true,
                 label: 'name',
                 controller: nameController,
                 validator: (value) {
@@ -66,6 +67,9 @@ class _EditState extends State<Edit> {
                   ? CustomButton(
                       onPressed: () {
                         if (_editNameFormKey.currentState.validate()) {
+                          setState(() {
+                            isLoading = true;
+                          });
                           editUser(nameController.text.toString());
                         }
                       },

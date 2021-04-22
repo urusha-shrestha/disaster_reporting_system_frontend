@@ -17,6 +17,7 @@ class DescriptionTextbox extends StatelessWidget {
           labelText: 'Description',
           alignLabelWithHint: true,
           enabledBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(color: kprimaryColour),
           ),
           border: OutlineInputBorder(

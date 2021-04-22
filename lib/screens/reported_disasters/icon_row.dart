@@ -6,10 +6,12 @@ class IconRow extends StatelessWidget {
     @required this.icon,
     @required this.dataText,
     @required this.dataTextStyle,
+    @required this.width,
   });
   final icon;
   final String dataText;
   final dataTextStyle;
+  final bool width;
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +19,25 @@ class IconRow extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Icon(
             icon,
             size: 20,
             color: kprimaryColour,
           ),
-          SizedBox(width: 4),
-          Text(
-            dataText,
-            style: dataTextStyle,
+          SizedBox(
+            width: 3,
+          ),
+          Container(
+            width: width ? 110 : null,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Text(
+                dataText,
+                style: dataTextStyle,
+              ),
+            ),
           ),
         ],
       ),

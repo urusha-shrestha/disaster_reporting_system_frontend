@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fyp/components/custom_clipper.dart';
 import 'package:fyp/components/custom_text_form_field.dart';
-import 'package:fyp/components/loading.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../../constants.dart';
 import '../forgotpassword/forgotpassword.dart';
 import 'customtext.dart';
@@ -101,6 +99,7 @@ class _LogInState extends State<LogIn> {
                                     margin: EdgeInsets.only(left: 30),
                                     height: 40,
                                     child: CustomTextField(
+                                      border: false,
                                       controller: widget.email,
                                       keyboardType: TextInputType.emailAddress,
                                       validator: (value) {
@@ -128,6 +127,7 @@ class _LogInState extends State<LogIn> {
                                     margin: EdgeInsets.only(left: 30),
                                     height: 40,
                                     child: CustomTextField(
+                                      border: false,
                                       controller: widget.password,
                                       validator: (value) {
                                         if (value.isEmpty) {
